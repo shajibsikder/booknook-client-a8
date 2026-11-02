@@ -14,7 +14,6 @@ import {
   Atom,
   Landmark,
   Smile,
-  Star,
 } from "lucide-react";
 import BookCard, { Book } from "@/components/BookCard";
 
@@ -291,49 +290,6 @@ export default function HomePage() {
               </p>
             </Link>
           ))}
-        </div>
-      </section>
-
-      {/* 5. EXTRA BONUS: COMMUNITY VOICES & IMPACT */}
-      <section className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-        <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-stone-900 via-stone-850 to-stone-950 text-white shadow-xl">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-5 space-y-4">
-              <span className="text-xs uppercase tracking-widest text-orange-400 font-semibold">
-                Community Impact
-              </span>
-              <h3 className="font-serif text-3xl sm:text-4xl font-bold text-white">
-                Books in Motion
-              </h3>
-              <p className="text-sm text-stone-400 leading-relaxed">
-                We believe stories multiply when shared. Every book borrowed is another journey celebrated.
-              </p>
-              <div className="grid grid-cols-2 gap-4 pt-4 border-t border-stone-800">
-                <div>
-                  <p className="font-serif text-2xl sm:text-3xl font-extrabold text-orange-400">1,450+</p>
-                  <p className="text-xs text-stone-400 uppercase tracking-wider mt-0.5">Circulated</p>
-                </div>
-                <div>
-                  <p className="font-serif text-2xl sm:text-3xl font-extrabold text-amber-400">99.2%</p>
-                  <p className="text-xs text-stone-400 uppercase tracking-wider mt-0.5">Return Rate</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-7 space-y-4">
-              <div className="p-5 sm:p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
-                <div className="flex items-center gap-1 text-amber-400 mb-2">
-                  {[1, 2, 3, 4, 5].map((s) => (
-                    <Star key={s} className="w-4 h-4 fill-amber-400" />
-                  ))}
-                </div>
-                <p className="text-sm text-stone-300 italic">
-                  &ldquo;BookNook rekindled my love for paper and hardcovers. Finding rare science and history volumes borrowed right through neighbors feels magical.&rdquo;
-                </p>
-                <p className="text-xs text-stone-400 mt-3 font-semibold">— Farhana Ahmed, History Reader</p>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
     </div>
