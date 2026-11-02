@@ -187,27 +187,28 @@ export default function HomePage() {
                       </div>
                     </div>
 
-                    {/* Right Column: High-End Book Showcase Card */}
+                    {/* Right Column: High-End Book Showcase Card (1:1 Ratio) */}
                     <div className="lg:col-span-5 xl:col-span-4 flex justify-center lg:justify-end">
-                      <div className="relative w-full max-w-[280px] sm:max-w-xs lg:max-w-sm group">
+                      <div className="relative w-full max-w-[320px] sm:max-w-sm lg:max-w-[360px] group">
                         {/* Ambient Glow */}
                         <div className="absolute -inset-1 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-orange-600/30 to-amber-600/30 blur-xl opacity-75 group-hover:opacity-100 transition-opacity" />
 
                         {/* Showcase Container */}
-                        <div className="relative p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-stone-900/90 border border-stone-700/80 backdrop-blur-xl shadow-2xl space-y-3 sm:space-y-4">
-                          <div className="relative aspect-[4/5] sm:aspect-[3/4] rounded-xl sm:rounded-2xl overflow-hidden shadow-lg bg-stone-800">
+                        <div className="relative p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-stone-900/90 border border-stone-700/80 backdrop-blur-xl shadow-2xl space-y-3 sm:space-y-4">
+                          {/* 1:1 Square Aspect Ratio Image */}
+                          <div className="relative aspect-square w-full rounded-xl sm:rounded-2xl overflow-hidden shadow-lg bg-stone-800">
                             <img
                               src={slide.featuredBook.image}
                               alt={slide.featuredBook.title}
                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                             />
-                            <div className="absolute top-2 sm:top-3 left-2 sm:left-3">
-                              <span className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-bold uppercase tracking-wider bg-orange-600 text-white shadow-md">
+                            <div className="absolute top-2.5 left-2.5 sm:top-3 sm:left-3">
+                              <span className="px-2.5 py-1 rounded-full text-[9px] sm:text-[10px] font-bold uppercase tracking-wider bg-orange-600 text-white shadow-md">
                                 {slide.featuredBook.category}
                               </span>
                             </div>
-                            <div className="absolute bottom-2 sm:bottom-3 right-2 sm:right-3">
-                              <span className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[10px] sm:text-[11px] font-medium bg-black/80 backdrop-blur-md text-emerald-400 border border-emerald-500/30">
+                            <div className="absolute bottom-2.5 right-2.5 sm:bottom-3 sm:right-3">
+                              <span className="px-2.5 py-1 rounded-full text-[10px] sm:text-[11px] font-medium bg-black/80 backdrop-blur-md text-emerald-400 border border-emerald-500/30">
                                 {slide.featuredBook.copies}
                               </span>
                             </div>
