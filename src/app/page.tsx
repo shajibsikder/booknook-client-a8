@@ -4,7 +4,16 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import { BookOpen, Sparkles, ArrowRight, Star } from "lucide-react";
+import {
+  BookOpen,
+  Sparkles,
+  ArrowRight,
+  Star,
+  CheckCircle2,
+  Bookmark,
+  ShieldCheck,
+  TrendingUp,
+} from "lucide-react";
 import BookCard, { Book } from "@/components/BookCard";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
@@ -12,27 +21,57 @@ const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 const heroSlides = [
   {
     id: 1,
+    tag: "FEATURED FICTION",
+    tagColor: "bg-orange-500/20 text-orange-300 border-orange-500/30",
     title: "Escape Into Stories That Linger Forever",
-    tagline: "CURATED FICTION & CLASSICS",
-    desc: "From midnight libraries to timeless tales, explore thousands of community-shared books ready to borrow.",
+    highlight: "Stories That Linger",
+    desc: "From midnight libraries to timeless tales, explore thousands of community-shared volumes ready to borrow in a single click.",
     cta: "Browse Books",
-    image: "https://images.unsplash.com/photo-1507842229451-7f01be7fe0ab?auto=format&fit=crop&w=1600&q=80",
+    featuredBook: {
+      title: "The Midnight Library",
+      author: "Matt Haig",
+      category: "Fiction",
+      rating: "4.8",
+      copies: "5 copies on shelf",
+      image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=800&q=80",
+    },
+    bgGradient: "from-stone-950 via-stone-900 to-amber-950/40",
   },
   {
     id: 2,
-    title: "Expand Your Horizon With Mind-Bending Science",
-    tagline: "COSMOLOGY, NATURE & INNOVATION",
-    desc: "Journey from quantum atoms to distant galaxies with the greatest scientific literature of our epoch.",
-    cta: "Explore Catalog",
-    image: "https://images.unsplash.com/photo-1532012164546-f432f2e3edd4?auto=format&fit=crop&w=1600&q=80",
+    tag: "SCIENCE & COSMOLOGY",
+    tagColor: "bg-blue-500/20 text-blue-300 border-blue-500/30",
+    title: "Expand Your Universe With Modern Science",
+    highlight: "Modern Science",
+    desc: "Journey from quantum particles to distant galaxies with the greatest scientific literature curated by fellow stargazers.",
+    cta: "Browse Books",
+    featuredBook: {
+      title: "A Brief History of Time",
+      author: "Stephen Hawking",
+      category: "Science",
+      rating: "4.9",
+      copies: "4 copies on shelf",
+      image: "https://images.unsplash.com/photo-1532012164546-f432f2e3edd4?auto=format&fit=crop&w=800&q=80",
+    },
+    bgGradient: "from-slate-950 via-stone-900 to-indigo-950/40",
   },
   {
     id: 3,
-    title: "Pass Knowledge Forward: Add & Share Books",
-    tagline: "COMMUNITY POWERED LIBRARY",
-    desc: "Got a favorite book sitting on your shelf? Add it to BookNook and let another reader embark on the adventure.",
+    tag: "HUMAN HISTORY & GROWTH",
+    tagColor: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30",
+    title: "Pass Wisdom Forward: Share Your Books",
+    highlight: "Share Your Books",
+    desc: "Have a transformative book on your shelf? Add it to BookNook and let another curious reader embark on the adventure.",
     cta: "Browse Books",
-    image: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1600&q=80",
+    featuredBook: {
+      title: "Sapiens: A Brief History",
+      author: "Yuval Noah Harari",
+      category: "History",
+      rating: "4.9",
+      copies: "6 copies on shelf",
+      image: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=800&q=80",
+    },
+    bgGradient: "from-stone-950 via-stone-900 to-emerald-950/40",
   },
 ];
 
@@ -58,68 +97,148 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="space-y-20 pb-20">
-      {/* 1. HERO BANNER / SLIDER WITH SWIPER.JS */}
-      <section className="relative">
-        <Swiper
-          modules={[Autoplay, Pagination, Navigation]}
-          spaceBetween={0}
-          slidesPerView={1}
-          autoplay={{ delay: 5000, disableOnInteraction: false }}
-          pagination={{ clickable: true }}
-          navigation
-          className="w-full h-[520px] sm:h-[600px] lg:h-[640px]"
-        >
-          {heroSlides.map((slide) => (
-            <SwiperSlide key={slide.id}>
-              <div className="relative w-full h-full flex items-center">
+    <div className="space-y-16 sm:space-y-24 pb-20">
+      {/* 1. SMART REDESIGNED HERO SLIDER (2-Column Crisp Layout) */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8">
+        <div className="rounded-3xl sm:rounded-[36px] overflow-hidden shadow-2xl border border-stone-800 bg-stone-950 text-white relative">
+          <Swiper
+            modules={[Autoplay, Pagination, Navigation]}
+            spaceBetween={0}
+            slidesPerView={1}
+            autoplay={{ delay: 6000, disableOnInteraction: false }}
+            pagination={{ clickable: true }}
+            navigation
+            className="w-full"
+          >
+            {heroSlides.map((slide) => (
+              <SwiperSlide key={slide.id}>
                 <div
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700"
-                  style={{ backgroundImage: `url(${slide.image})` }}
+                  className={`relative w-full bg-gradient-to-br ${slide.bgGradient} p-6 sm:p-12 lg:p-16 flex items-center min-h-[500px] sm:min-h-[560px]`}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-stone-950/90 via-stone-900/70 to-stone-950/40" />
-                </div>
+                  {/* Subtle Grid Ambient Texture */}
+                  <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none" />
 
-                <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <div className="max-w-2xl space-y-6">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-600/30 border border-orange-500/40 text-orange-300 text-xs font-semibold tracking-wider">
-                      <Sparkles className="w-3.5 h-3.5 text-orange-400" />
-                      <span>{slide.tagline}</span>
+                  {/* 2-Column Responsive Grid */}
+                  <div className="relative z-10 w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                    {/* Left Column: Headline, Description & CTAs */}
+                    <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
+                      <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border text-xs font-bold tracking-wider backdrop-blur-md mx-auto lg:mx-0 shadow-sm">
+                        <Sparkles className="w-3.5 h-3.5 text-orange-400" />
+                        <span>{slide.tag}</span>
+                      </div>
+
+                      <h1 className="font-serif text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-black text-white leading-[1.12] tracking-tight">
+                        {slide.title}
+                      </h1>
+
+                      <p className="text-sm sm:text-base lg:text-lg text-stone-300 font-normal leading-relaxed max-w-xl mx-auto lg:mx-0">
+                        {slide.desc}
+                      </p>
+
+                      {/* Action Buttons */}
+                      <div className="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-4">
+                        <Link
+                          href="/books"
+                          className="px-7 py-3.5 rounded-2xl bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-semibold text-sm sm:text-base shadow-lg shadow-orange-600/30 flex items-center gap-2.5 transition-all hover:gap-3.5 hover:scale-[1.02]"
+                        >
+                          <BookOpen className="w-5 h-5" />
+                          <span>{slide.cta}</span>
+                          <ArrowRight className="w-4 h-4" />
+                        </Link>
+
+                        <Link
+                          href="/add-book"
+                          className="px-6 py-3.5 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-medium text-sm sm:text-base backdrop-blur-md border border-white/20 transition-all hover:scale-[1.02]"
+                        >
+                          Share a Book
+                        </Link>
+                      </div>
+
+                      {/* Social Proof Mini-Badge */}
+                      <div className="pt-4 flex items-center justify-center lg:justify-start gap-4 border-t border-white/10">
+                        <div className="flex -space-x-2">
+                          <img
+                            className="w-8 h-8 rounded-full border-2 border-stone-900 object-cover"
+                            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80"
+                            alt="Reader"
+                          />
+                          <img
+                            className="w-8 h-8 rounded-full border-2 border-stone-900 object-cover"
+                            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80"
+                            alt="Reader"
+                          />
+                          <img
+                            className="w-8 h-8 rounded-full border-2 border-stone-900 object-cover"
+                            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80"
+                            alt="Reader"
+                          />
+                        </div>
+                        <div className="text-left text-xs text-stone-300">
+                          <div className="flex items-center gap-1 text-amber-400">
+                            {[1, 2, 3, 4, 5].map((s) => (
+                              <Star key={s} className="w-3 h-3 fill-amber-400" />
+                            ))}
+                            <span className="font-bold ml-1 text-white">4.9 / 5</span>
+                          </div>
+                          <p className="text-[11px] text-stone-400">Trusted by 850+ local readers</p>
+                        </div>
+                      </div>
                     </div>
 
-                    <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.15] tracking-tight">
-                      {slide.title}
-                    </h1>
+                    {/* Right Column: High-End Book Showcase Card (Smart 3D Depth) */}
+                    <div className="lg:col-span-5 flex justify-center lg:justify-end">
+                      <div className="relative w-full max-w-xs sm:max-w-sm group">
+                        {/* Glow Behind Card */}
+                        <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-orange-600/30 to-amber-600/30 blur-xl opacity-75 group-hover:opacity-100 transition-opacity" />
 
-                    <p className="text-base sm:text-lg text-stone-300 font-light leading-relaxed">
-                      {slide.desc}
-                    </p>
+                        {/* Visual Card */}
+                        <div className="relative p-5 sm:p-6 rounded-3xl bg-stone-900/90 border border-stone-700/80 backdrop-blur-xl shadow-2xl space-y-4">
+                          <div className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-lg bg-stone-800">
+                            <img
+                              src={slide.featuredBook.image}
+                              alt={slide.featuredBook.title}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            />
+                            <div className="absolute top-3 left-3">
+                              <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-orange-600 text-white shadow-md">
+                                {slide.featuredBook.category}
+                              </span>
+                            </div>
+                            <div className="absolute bottom-3 right-3">
+                              <span className="px-2.5 py-1 rounded-full text-[11px] font-medium bg-black/75 backdrop-blur-md text-emerald-400 border border-emerald-500/30">
+                                {slide.featuredBook.copies}
+                              </span>
+                            </div>
+                          </div>
 
-                    <div className="pt-2 flex flex-wrap items-center gap-4">
-                      <Link
-                        href="/books"
-                        className="px-7 py-3.5 rounded-2xl bg-orange-600 hover:bg-orange-500 text-white font-medium shadow-lg shadow-orange-600/30 flex items-center gap-2.5 transition-all hover:gap-3.5"
-                      >
-                        <BookOpen className="w-5 h-5" />
-                        <span>{slide.cta}</span>
-                        <ArrowRight className="w-4 h-4" />
-                      </Link>
-                      <Link
-                        href="/add-book"
-                        className="px-6 py-3.5 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-medium backdrop-blur-md border border-white/20 transition-colors"
-                      >
-                        Share a Book
-                      </Link>
+                          <div className="space-y-1">
+                            <h3 className="font-serif text-lg font-bold text-white line-clamp-1">
+                              {slide.featuredBook.title}
+                            </h3>
+                            <p className="text-xs text-stone-400">
+                              by {slide.featuredBook.author}
+                            </p>
+                          </div>
+
+                          <Link
+                            href="/books"
+                            className="w-full py-2.5 rounded-xl bg-white/10 hover:bg-orange-600 text-white text-xs font-semibold flex items-center justify-center gap-2 transition-colors"
+                          >
+                            <span>Inspect & Borrow</span>
+                            <ArrowRight className="w-3.5 h-3.5" />
+                          </Link>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
       </section>
 
-      {/* 2. DYNAMIC NEW ARRIVALS */}
+      {/* 2. DYNAMIC NEW ARRIVALS (Latest 6 Books) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
           <div>
