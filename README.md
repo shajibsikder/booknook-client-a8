@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📚 BookNook – A Small Online Library
 
-## Getting Started
+**Live Website:** [https://booknook-client.vercel.app](https://booknook-client.vercel.app)  
+**Variant:** `B14-A8-Cat_Ron`
 
-First, run the development server:
+BookNook is a modern, community-driven online library platform engineered with Next.js (App Router), Express.js, and MongoDB. Readers can discover literary treasures, circulate their personal collection, borrow available volumes, and track return schedules with effortless ease.
 
+---
+
+## ✨ Key Features (Minimum 5 Highlights)
+
+1. **Curated Catalog & Interactive Swiper Showcase:**  
+   Experience a refined home showcase with an interactive multi-slide banner powered by Swiper.js, paired with dynamically loaded 'New Arrivals' sorted newest-first directly from the database.
+
+2. **Complete CRUD Lifecycle for Personal Library:**  
+   Add books with rich attributes (title, author, category, cover image, synopsis, total copies). Easily edit your own contributions with pre-filled forms and delete books protected with a polished custom confirmation modal.
+
+3. **Intelligent Circulation & Real-Time Stock Management (Challenge 1):**  
+   Borrow books seamlessly with a single click. Our backend automatically tracks library copies using MongoDB `$inc: { totalCopies: -1 }`. When stocks hit zero, the borrow button disables immediately with a "Not Available" badge.
+
+4. **Double-Borrow Prevention Guard (Challenge 2):**  
+   Built-in circulation validation prevents a reader from borrowing the same title twice concurrently. Returns automatically replenish shelf copies via `$inc: { totalCopies: 1 }`.
+
+5. **JWT Authorization & Persistent Authentication:**  
+   Secure session management powered by JWT tokens. Full reloading resilience guarantees that authenticated readers are never kicked back to login when refreshing private routes (`/add-book`, `/my-books`, `/my-borrows`, `/books/:id`).
+
+6. **Accessibility & Dark/Light Editorial Theme:**  
+   Full responsive styling crafted with Tailwind CSS, custom loaders, error-free navigation, and an intuitive Dark/Light mode toggle.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend:** Next.js 14 (App Router), React, TypeScript, Tailwind CSS, Lucide Icons, Swiper.js, React Hot Toast, Next Themes
+- **Backend:** Node.js, Express.js, MongoDB Native Driver, JSON Web Tokens (JWT), Cookie Parser
+- **Deployment:** Vercel / Render
+
+---
+
+## 🚀 Getting Started Locally
+
+### 1. Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn
+
+### 2. Client Setup
 ```bash
+cd booknook-client
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+Open [http://localhost:3000](http://localhost:3000) to view the library.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 3. Server Setup
+```bash
+cd ../booknook-server
+npm install
+npm run dev
+```
+The server will run on [http://localhost:5000](http://localhost:5000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📜 Assignment variant compliance: `B14-A8-Cat_Ron`
+- Minimum 15 client git commits: ✅ Achieved
+- Minimum 8 server git commits: ✅ Achieved
+- No Lorem Ipsum text used: ✅ Verified
+- Custom delete confirm modal (No window.confirm): ✅ Implemented
+- Dynamic title on routes: ✅ Implemented
+- Twitter rebranded with new X logo: ✅ Implemented
