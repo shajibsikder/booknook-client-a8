@@ -77,7 +77,7 @@ export default function HomePage() {
   useEffect(() => {
     async function fetchNewArrivals() {
       try {
-        const res = await fetch(`${API_BASE}/books?limit=4&sort=newest`);
+        const res = await fetch(`${API_BASE}/books?limit=10&sort=newest`);
         if (res.ok) {
           const data = await res.json();
           setNewArrivals(data);
@@ -177,17 +177,17 @@ export default function HomePage() {
         </div>
 
         {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {[1, 2, 3, 4].map((i) => (
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-5 lg:gap-6">
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
               <div
                 key={i}
-                className="h-96 rounded-2xl bg-stone-200/60 dark:bg-slate-800 animate-pulse"
+                className="h-80 rounded-2xl bg-stone-200/60 dark:bg-slate-800 animate-pulse"
               />
             ))}
           </div>
         ) : newArrivals.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {newArrivals.slice(0, 4).map((book) => (
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-5 lg:gap-6">
+            {newArrivals.slice(0, 10).map((book) => (
               <BookCard key={book._id} book={book} />
             ))}
           </div>
