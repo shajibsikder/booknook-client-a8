@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
-import { PlusCircle, BookOpen, User, Tag, Image as ImageIcon, Layers, FileText } from "lucide-react";
+import { PlusCircle, BookOpen, User, Tag, Image as ImageIcon, Layers, FileText, Sparkles } from "lucide-react";
 import toast from "react-hot-toast";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
@@ -26,6 +26,16 @@ export default function AddBookPage() {
   useEffect(() => {
     document.title = "BookNook | Add Book";
   }, []);
+
+  const handleFillDemo = () => {
+    setTitle("Atomic Habits");
+    setAuthor("James Clear");
+    setCategory("Others");
+    setImage("https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=800&q=80");
+    setDescription("An easy and proven way to build good habits and break bad ones. This book offers a proven framework for improving every day.");
+    setTotalCopies(5);
+    toast.success("Sample book details filled! Click 'Add Book to Library' to save.");
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -86,6 +96,20 @@ export default function AddBookPage() {
         </div>
 
         <div className="bg-white dark:bg-slate-900 rounded-3xl border border-stone-200/80 dark:border-slate-800 p-6 sm:p-10 shadow-xl">
+          <div className="flex items-center justify-between pb-4 mb-6 border-b border-stone-100 dark:border-slate-800">
+            <h2 className="text-sm font-bold uppercase tracking-wider text-stone-500 dark:text-stone-400">
+              Book Specification Form
+            </h2>
+            <button
+              type="button"
+              onClick={handleFillDemo}
+              className="text-xs font-semibold px-3 py-1.5 rounded-xl bg-orange-50 dark:bg-orange-950/40 text-orange-600 dark:text-orange-400 border border-orange-200 dark:border-orange-800/60 hover:bg-orange-100 dark:hover:bg-orange-900/40 transition-colors flex items-center gap-1.5 shadow-sm"
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Auto-Fill Sample Book</span>
+            </button>
+          </div>
+
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Book Title */}
             <div>
