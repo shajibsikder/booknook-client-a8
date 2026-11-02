@@ -4,7 +4,19 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
-import { User, Mail, BookOpen, BookMarked, ShieldCheck, Calendar, ArrowRight, LogOut } from "lucide-react";
+import {
+  Mail,
+  BookOpen,
+  BookMarked,
+  ShieldCheck,
+  Calendar,
+  ArrowRight,
+  LogOut,
+  Sparkles,
+  Award,
+  CheckCircle2,
+  Clock,
+} from "lucide-react";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
@@ -46,91 +58,120 @@ export default function ProfilePage() {
   return (
     <ProtectedRoute>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-8">
-        {/* Profile Header Banner Card */}
+        {/* Main Profile Header Card */}
         <div className="bg-white dark:bg-slate-900 rounded-3xl border border-stone-200/80 dark:border-slate-800 shadow-xl overflow-hidden">
-          {/* Header decorative stripe */}
-          <div className="h-32 bg-gradient-to-r from-orange-600 via-amber-600 to-amber-700 relative" />
+          {/* Header Banner */}
+          <div className="h-44 sm:h-52 bg-gradient-to-r from-amber-700 via-orange-600 to-amber-600 relative overflow-hidden">
+            <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]" />
+            <div className="absolute top-4 right-4 sm:top-6 sm:right-6">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/20 backdrop-blur-md text-white text-xs font-medium border border-white/20">
+                <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+                Reader Profile
+              </span>
+            </div>
+          </div>
 
-          {/* User Details Section */}
-          <div className="px-6 sm:px-10 pb-8 sm:pb-10 relative">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 -mt-16 sm:-mt-20 mb-6">
+          {/* Profile Info Section (Clean & Perfectly Aligned) */}
+          <div className="px-6 sm:px-10 pb-8 sm:pb-10">
+            {/* Avatar Row */}
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 -mt-20 sm:-mt-24 mb-6">
+              {/* Avatar + Main Info */}
               <div className="flex flex-col sm:flex-row sm:items-end gap-5">
-                <img
-                  src={user?.photoURL || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80"}
-                  alt={user?.name || "User Avatar"}
-                  className="w-28 h-28 sm:w-32 sm:h-32 rounded-3xl object-cover ring-4 ring-white dark:ring-slate-900 shadow-xl bg-stone-100"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src =
-                      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80";
-                  }}
-                />
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2">
-                    <h1 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900 dark:text-white">
+                <div className="relative w-32 h-32 sm:w-36 sm:h-36 rounded-3xl overflow-hidden ring-4 ring-white dark:ring-slate-900 shadow-2xl bg-stone-100 dark:bg-slate-800 shrink-0">
+                  <img
+                    src={
+                      user?.photoURL ||
+                      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80"
+                    }
+                    alt={user?.name || "User Avatar"}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src =
+                        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80";
+                    }}
+                  />
+                </div>
+
+                {/* Name, Badge & Email */}
+                <div className="space-y-1.5 pt-2">
+                  <div className="flex flex-wrap items-center gap-2.5">
+                    <h1 className="font-serif text-2xl sm:text-3xl font-extrabold text-stone-900 dark:text-white">
                       {user?.name || "Avid Reader"}
                     </h1>
-                    <span className="inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-orange-100 dark:bg-orange-950/60 text-orange-700 dark:text-orange-300">
+                    <span className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-0.5 rounded-full bg-orange-100 dark:bg-orange-950/60 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-900/60">
                       <ShieldCheck className="w-3.5 h-3.5" />
                       Verified Reader
                     </span>
                   </div>
                   <p className="text-sm text-stone-500 dark:text-stone-400 flex items-center gap-1.5">
                     <Mail className="w-4 h-4 text-orange-600" />
-                    {user?.email}
+                    <span>{user?.email}</span>
                   </p>
                 </div>
               </div>
 
-              <button
-                onClick={() => logout()}
-                className="self-start sm:self-auto px-5 py-2.5 rounded-xl border border-rose-200 dark:border-rose-900/60 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 text-sm font-medium transition-colors flex items-center gap-2"
-              >
-                <LogOut className="w-4 h-4" />
-                <span>Logout</span>
-              </button>
+              {/* Logout Button */}
+              <div className="pt-2 sm:pt-0">
+                <button
+                  onClick={() => logout()}
+                  className="px-5 py-2.5 rounded-xl border border-rose-200 dark:border-rose-900/70 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 text-sm font-semibold transition-colors flex items-center gap-2 shadow-sm"
+                >
+                  <LogOut className="w-4 h-4" />
+                  <span>Logout</span>
+                </button>
+              </div>
             </div>
 
-            {/* Account Details Box */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-stone-100 dark:border-slate-800">
-              <div className="p-4 rounded-2xl bg-stone-50 dark:bg-slate-800/60">
-                <span className="text-xs uppercase font-bold text-stone-400 tracking-wider">Membership</span>
-                <p className="text-sm font-semibold text-stone-900 dark:text-white mt-1">BookNook Community</p>
+            {/* Membership Details Bar */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 border-t border-stone-200/80 dark:border-slate-800">
+              <div className="p-4 rounded-2xl bg-stone-50 dark:bg-slate-800/60 border border-stone-100 dark:border-slate-800">
+                <span className="text-[11px] uppercase font-bold text-stone-400 dark:text-stone-500 tracking-wider">
+                  Membership Tier
+                </span>
+                <p className="text-sm font-bold text-stone-900 dark:text-white mt-1">BookNook Community</p>
               </div>
-              <div className="p-4 rounded-2xl bg-stone-50 dark:bg-slate-800/60">
-                <span className="text-xs uppercase font-bold text-stone-400 tracking-wider">Account Role</span>
-                <p className="text-sm font-semibold text-stone-900 dark:text-white mt-1">Library Patron</p>
+              <div className="p-4 rounded-2xl bg-stone-50 dark:bg-slate-800/60 border border-stone-100 dark:border-slate-800">
+                <span className="text-[11px] uppercase font-bold text-stone-400 dark:text-stone-500 tracking-wider">
+                  Account Role
+                </span>
+                <p className="text-sm font-bold text-stone-900 dark:text-white mt-1">Active Library Patron</p>
               </div>
-              <div className="p-4 rounded-2xl bg-stone-50 dark:bg-slate-800/60">
-                <span className="text-xs uppercase font-bold text-stone-400 tracking-wider">Access Status</span>
-                <p className="text-sm font-semibold text-emerald-600 dark:text-emerald-400 mt-1">Active (Unlimited)</p>
+              <div className="p-4 rounded-2xl bg-stone-50 dark:bg-slate-800/60 border border-stone-100 dark:border-slate-800">
+                <span className="text-[11px] uppercase font-bold text-stone-400 dark:text-stone-500 tracking-wider">
+                  Circulation Status
+                </span>
+                <p className="text-sm font-bold text-emerald-600 dark:text-emerald-400 mt-1 flex items-center gap-1.5">
+                  <CheckCircle2 className="w-4 h-4" />
+                  Good Standing (Unlimited)
+                </p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Activity & Quick Action Cards */}
+        {/* Activity & Quick Action Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {/* Contributed Books Card */}
-          <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-stone-200/80 dark:border-slate-800 shadow-sm flex flex-col justify-between space-y-4">
+          <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-stone-200/80 dark:border-slate-800 shadow-sm flex flex-col justify-between space-y-5 hover:border-amber-300 dark:hover:border-slate-700 transition-colors">
             <div className="flex items-center justify-between">
-              <div className="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-950/60 text-amber-700 flex items-center justify-center">
-                <BookOpen className="w-6 h-6" />
+              <div className="w-14 h-14 rounded-2xl bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 flex items-center justify-center">
+                <BookOpen className="w-7 h-7" />
               </div>
-              <span className="text-3xl font-extrabold font-serif text-stone-900 dark:text-white">
+              <span className="text-4xl font-extrabold font-serif text-stone-900 dark:text-white">
                 {loadingStats ? "..." : myBooksCount}
               </span>
             </div>
             <div>
-              <h3 className="font-serif text-lg font-bold text-stone-900 dark:text-white">
+              <h3 className="font-serif text-xl font-bold text-stone-900 dark:text-white">
                 Books Contributed
               </h3>
-              <p className="text-xs text-stone-500 mt-1 leading-relaxed">
-                Titles you have shared with the BookNook reading community.
+              <p className="text-xs sm:text-sm text-stone-500 dark:text-stone-400 mt-1.5 leading-relaxed">
+                Titles you have personally added to BookNook shelves for other readers to discover.
               </p>
             </div>
             <Link
               href="/my-books"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-orange-600 hover:text-orange-700 pt-2"
+              className="inline-flex items-center gap-2 text-sm font-bold text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 pt-2"
             >
               <span>Manage My Books</span>
               <ArrowRight className="w-4 h-4" />
@@ -138,26 +179,26 @@ export default function ProfilePage() {
           </div>
 
           {/* Borrowed Books Card */}
-          <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-stone-200/80 dark:border-slate-800 shadow-sm flex flex-col justify-between space-y-4">
+          <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-stone-200/80 dark:border-slate-800 shadow-sm flex flex-col justify-between space-y-5 hover:border-emerald-300 dark:hover:border-slate-700 transition-colors">
             <div className="flex items-center justify-between">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 flex items-center justify-center">
-                <BookMarked className="w-6 h-6" />
+              <div className="w-14 h-14 rounded-2xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 flex items-center justify-center">
+                <BookMarked className="w-7 h-7" />
               </div>
-              <span className="text-3xl font-extrabold font-serif text-stone-900 dark:text-white">
+              <span className="text-4xl font-extrabold font-serif text-stone-900 dark:text-white">
                 {loadingStats ? "..." : myBorrowsCount}
               </span>
             </div>
             <div>
-              <h3 className="font-serif text-lg font-bold text-stone-900 dark:text-white">
+              <h3 className="font-serif text-xl font-bold text-stone-900 dark:text-white">
                 Active Borrowed Loans
               </h3>
-              <p className="text-xs text-stone-500 mt-1 leading-relaxed">
-                Books currently borrowed by you that are awaiting return.
+              <p className="text-xs sm:text-sm text-stone-500 dark:text-stone-400 mt-1.5 leading-relaxed">
+                Books currently checked out in your reading list. Remember to return them once finished!
               </p>
             </div>
             <Link
               href="/my-borrows"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-emerald-600 hover:text-emerald-700 pt-2"
+              className="inline-flex items-center gap-2 text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 pt-2"
             >
               <span>View Borrowed Books</span>
               <ArrowRight className="w-4 h-4" />
