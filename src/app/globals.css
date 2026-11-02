@@ -8,29 +8,37 @@
 @import 'swiper/css/autoplay';
 
 :root {
-  --background: #fbfaf8;
+  --background: #fbf9f5;
   --foreground: #1c1917;
 }
 
 .dark {
-  --background: #0f172a;
+  --background: #0c0f17;
   --foreground: #f8fafc;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Custom smooth swiper pagination */
+/* Custom Minimalist Swiper Navigation */
+.swiper-button-next,
+.swiper-button-prev {
+  display: none !important; /* Hide clumsy default arrows, we use custom clean pill controls */
+}
+
 .swiper-pagination-bullet {
   background: #c2410c !important;
-  opacity: 0.4;
-  transition: all 0.3s ease;
+  opacity: 0.25;
+  width: 8px !important;
+  height: 8px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .swiper-pagination-bullet-active {
@@ -39,7 +47,17 @@ body {
   border-radius: 9999px !important;
 }
 
-.swiper-button-next,
-.swiper-button-prev {
-  color: #c2410c !important;
+/* Custom clean scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #d6d3cd;
+  border-radius: 4px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
 }
