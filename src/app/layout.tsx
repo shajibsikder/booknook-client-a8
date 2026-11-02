@@ -9,9 +9,27 @@ import { Toaster } from "react-hot-toast";
 export const metadata: Metadata = {
   title: {
     template: "%s | BookNook",
-    default: "BookNook | A Small Online Library",
+    default: "BookNook — A Small Online Library",
   },
-  description: "A small online library platform to discover, borrow, and share books seamlessly.",
+  description:
+    "BookNook is a community-driven digital library platform. Discover curated shelves, borrow timeless literature, and share books freely.",
+  keywords: [
+    "BookNook",
+    "online library",
+    "borrow books",
+    "community library",
+    "reading circle",
+    "book sharing",
+    "library management system",
+    "Next.js library app",
+  ],
+  authors: [{ name: "Shajib Sikder" }],
+  openGraph: {
+    title: "BookNook — A Small Online Library",
+    description: "Add a book, borrow a book, return a book. An open digital library for bibliophiles.",
+    siteName: "BookNook",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -21,7 +39,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="antialiased selection:bg-orange-500 selection:text-white flex flex-col min-h-screen">
+      <body className="antialiased selection:bg-orange-500 selection:text-white flex flex-col min-h-screen bg-stone-50/50 dark:bg-stone-950 text-stone-900 dark:text-stone-100">
         <ThemeProvider>
           <AuthProvider>
             <Toaster
@@ -31,7 +49,7 @@ export default function RootLayout({
                 style: {
                   background: "#1c1917",
                   color: "#fff",
-                  borderRadius: "12px",
+                  borderRadius: "14px",
                   fontSize: "14px",
                 },
               }}
