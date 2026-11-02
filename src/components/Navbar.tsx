@@ -19,6 +19,7 @@ import {
   Home,
   Info,
   FileText,
+  ShieldCheck,
 } from "lucide-react";
 
 export default function Navbar() {
@@ -426,6 +427,15 @@ export default function Navbar() {
             >
               <FileText className="w-3.5 h-3.5 text-stone-400" />
               <span>Terms & Conditions</span>
+            </Link>
+
+            <Link
+              href="/privacy"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs font-medium text-stone-600 dark:text-stone-400 hover:bg-stone-100 dark:hover:bg-slate-800"
+            >
+              <ShieldCheck className="w-3.5 h-3.5 text-stone-400" />
+              <span>Privacy Policy</span>
             </Link>
           </nav>
 
