@@ -59,8 +59,8 @@ export default function Navbar() {
       <nav className="sticky top-0 z-40 backdrop-blur-md bg-white/80 dark:bg-slate-900/80 border-b border-stone-200 dark:border-slate-800 transition-colors">
         <div className="w-full max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            {/* Left: Mobile Menu Trigger + Brand Logo */}
-            <div className="flex items-center gap-2 sm:gap-3">
+            {/* Left: Mobile Trigger + Brand Logo + Left-Aligned Nav Menu */}
+            <div className="flex items-center gap-3 md:gap-6 lg:gap-8">
               {/* Hamburger Button (Mobile Only) */}
               <button
                 onClick={() => setMobileMenuOpen(true)}
@@ -70,86 +70,81 @@ export default function Navbar() {
                 <Menu className="w-6 h-6" />
               </button>
 
-              {/* Logo & Brand Name */}
+              {/* Logo & Brand Name (Clean, without Online Library subtitle) */}
               <Link href="/" className="flex items-center gap-2.5 group">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-700 via-orange-600 to-amber-500 flex items-center justify-center text-white shadow-md shadow-orange-500/20 group-hover:scale-105 transition-transform">
                   <BookOpen className="w-5 h-5" />
                 </div>
-                <div className="flex flex-col">
-                  <span className="font-serif text-2xl font-bold tracking-tight text-stone-900 dark:text-white">
-                    Book<span className="text-orange-600 dark:text-orange-400">Nook</span>
-                  </span>
-                  <span className="text-[10px] uppercase tracking-widest text-stone-400 dark:text-stone-500 -mt-1 font-sans font-medium">
-                    Online Library
-                  </span>
-                </div>
-              </Link>
-            </div>
-
-            {/* Center: Desktop Nav Links */}
-            <div className="hidden md:flex items-center gap-1 lg:gap-2">
-              <Link
-                href="/"
-                className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  isActive("/")
-                    ? "bg-orange-50 text-orange-700 dark:bg-orange-950/40 dark:text-orange-400 font-semibold"
-                    : "text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-slate-800"
-                }`}
-              >
-                Home
+                <span className="font-serif text-2xl font-bold tracking-tight text-stone-900 dark:text-white">
+                  Book<span className="text-orange-600 dark:text-orange-400">Nook</span>
+                </span>
               </Link>
 
-              <Link
-                href="/books"
-                className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  isActive("/books")
-                    ? "bg-orange-50 text-orange-700 dark:bg-orange-950/40 dark:text-orange-400 font-semibold"
-                    : "text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-slate-800"
-                }`}
-              >
-                All Books
-              </Link>
+              {/* Desktop Nav Links (Left Aligned beside Logo, like Reference Screenshot) */}
+              <div className="hidden md:flex items-center gap-1 lg:gap-2">
+                <Link
+                  href="/"
+                  className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    isActive("/")
+                      ? "bg-orange-50 text-orange-700 dark:bg-orange-950/40 dark:text-orange-400 font-semibold"
+                      : "text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-slate-800"
+                  }`}
+                >
+                  Home
+                </Link>
 
-              {/* Private Links - shown only when logged in */}
-              {user && (
-                <>
-                  <Link
-                    href="/add-book"
-                    className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 ${
-                      isActive("/add-book")
-                        ? "bg-orange-50 text-orange-700 dark:bg-orange-950/40 dark:text-orange-400 font-semibold"
-                        : "text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-slate-800"
-                    }`}
-                  >
-                    <PlusCircle className="w-4 h-4 text-orange-600 dark:text-orange-400" />
-                    Add Book
-                  </Link>
+                <Link
+                  href="/books"
+                  className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    isActive("/books")
+                      ? "bg-orange-50 text-orange-700 dark:bg-orange-950/40 dark:text-orange-400 font-semibold"
+                      : "text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-slate-800"
+                  }`}
+                >
+                  All Books
+                </Link>
 
-                  <Link
-                    href="/my-books"
-                    className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 ${
-                      isActive("/my-books")
-                        ? "bg-orange-50 text-orange-700 dark:bg-orange-950/40 dark:text-orange-400 font-semibold"
-                        : "text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-slate-800"
-                    }`}
-                  >
-                    <Library className="w-4 h-4 text-amber-600 dark:text-amber-400" />
-                    My Books
-                  </Link>
+                {/* Private Links - shown only when logged in */}
+                {user && (
+                  <>
+                    <Link
+                      href="/add-book"
+                      className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 ${
+                        isActive("/add-book")
+                          ? "bg-orange-50 text-orange-700 dark:bg-orange-950/40 dark:text-orange-400 font-semibold"
+                          : "text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-slate-800"
+                      }`}
+                    >
+                      <PlusCircle className="w-4 h-4 text-orange-600 dark:text-orange-400" />
+                      Add Book
+                    </Link>
 
-                  <Link
-                    href="/my-borrows"
-                    className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 ${
-                      isActive("/my-borrows")
-                        ? "bg-orange-50 text-orange-700 dark:bg-orange-950/40 dark:text-orange-400 font-semibold"
-                        : "text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-slate-800"
-                    }`}
-                  >
-                    <BookMarked className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                    My Borrows
-                  </Link>
-                </>
-              )}
+                    <Link
+                      href="/my-books"
+                      className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 ${
+                        isActive("/my-books")
+                          ? "bg-orange-50 text-orange-700 dark:bg-orange-950/40 dark:text-orange-400 font-semibold"
+                          : "text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-slate-800"
+                      }`}
+                    >
+                      <Library className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+                      My Books
+                    </Link>
+
+                    <Link
+                      href="/my-borrows"
+                      className={`px-3.5 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 ${
+                        isActive("/my-borrows")
+                          ? "bg-orange-50 text-orange-700 dark:bg-orange-950/40 dark:text-orange-400 font-semibold"
+                          : "text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-slate-800"
+                      }`}
+                    >
+                      <BookMarked className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                      My Borrows
+                    </Link>
+                  </>
+                )}
+              </div>
             </div>
 
             {/* Right: Theme Toggle & Profile Dropdown */}
@@ -281,14 +276,9 @@ export default function Navbar() {
               <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-700 via-orange-600 to-amber-500 flex items-center justify-center text-white shadow-md shadow-orange-500/20">
                 <BookOpen className="w-5 h-5" />
               </div>
-              <div className="flex flex-col">
-                <span className="font-serif text-xl font-bold tracking-tight text-stone-900 dark:text-white leading-none">
-                  Book<span className="text-orange-600 dark:text-orange-400">Nook</span>
-                </span>
-                <span className="text-[9px] uppercase tracking-widest text-stone-400 dark:text-stone-500 font-sans font-medium mt-0.5">
-                  Online Library
-                </span>
-              </div>
+              <span className="font-serif text-xl font-bold tracking-tight text-stone-900 dark:text-white leading-none">
+                Book<span className="text-orange-600 dark:text-orange-400">Nook</span>
+              </span>
             </Link>
 
             <button
