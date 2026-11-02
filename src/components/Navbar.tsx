@@ -153,10 +153,14 @@ export default function Navbar() {
                     </div>
 
                     <div className="py-1">
-                      <div className="px-4 py-2 text-sm text-stone-700 dark:text-stone-300 flex items-center gap-2 hover:bg-stone-50 dark:hover:bg-slate-800/50 cursor-pointer">
+                      <Link
+                        href="/profile"
+                        onClick={() => setDropdownOpen(false)}
+                        className="px-4 py-2 text-sm text-stone-700 dark:text-stone-300 flex items-center gap-2 hover:bg-stone-50 dark:hover:bg-slate-800/50 transition-colors"
+                      >
                         <UserIcon className="w-4 h-4 text-orange-600" />
                         <span>My Profile</span>
-                      </div>
+                      </Link>
                     </div>
 
                     <div className="border-t border-stone-100 dark:border-slate-800 pt-1">
@@ -224,6 +228,13 @@ export default function Navbar() {
           </Link>
           {user ? (
             <>
+              <Link
+                href="/profile"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-3 py-2 rounded-lg text-base font-medium text-stone-800 dark:text-stone-200 hover:bg-stone-100 dark:hover:bg-slate-800"
+              >
+                My Profile
+              </Link>
               <Link
                 href="/add-book"
                 onClick={() => setMobileMenuOpen(false)}
