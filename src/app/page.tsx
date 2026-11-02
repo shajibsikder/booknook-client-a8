@@ -77,7 +77,7 @@ export default function HomePage() {
   useEffect(() => {
     async function fetchNewArrivals() {
       try {
-        const res = await fetch(`${API_BASE}/books?limit=6&sort=newest`);
+        const res = await fetch(`${API_BASE}/books?limit=4&sort=newest`);
         if (res.ok) {
           const data = await res.json();
           setNewArrivals(data);
@@ -155,8 +155,8 @@ export default function HomePage() {
         </Swiper>
       </section>
 
-      {/* 2. DYNAMIC NEW ARRIVALS */}
-      <section className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+      {/* 2. DYNAMIC NEW ARRIVALS (Left-aligned with max-w-[1560px], 4 cards per row) */}
+      <section className="w-full mx-auto px-4 sm:px-6 lg:px-8 max-w-[1560px]">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
           <div>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold text-stone-900 dark:text-white">
@@ -177,8 +177,8 @@ export default function HomePage() {
         </div>
 
         {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {[1, 2, 3, 4, 5, 6].map((i) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {[1, 2, 3, 4].map((i) => (
               <div
                 key={i}
                 className="h-96 rounded-2xl bg-stone-200/60 dark:bg-slate-800 animate-pulse"
@@ -186,8 +186,8 @@ export default function HomePage() {
             ))}
           </div>
         ) : newArrivals.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {newArrivals.map((book) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {newArrivals.slice(0, 4).map((book) => (
               <BookCard key={book._id} book={book} />
             ))}
           </div>
