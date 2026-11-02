@@ -98,9 +98,9 @@ export default function HomePage() {
 
   return (
     <div className="space-y-16 sm:space-y-24 pb-20">
-      {/* 1. SMART REDESIGNED HERO SLIDER (2-Column Crisp Layout) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8">
-        <div className="rounded-3xl sm:rounded-[36px] overflow-hidden shadow-2xl border border-stone-800 bg-stone-950 text-white relative">
+      {/* 1. WIDE HERO SLIDER FOR PC & FULLY RESPONSIVE FOR MOBILE */}
+      <section className="w-full max-w-[1560px] mx-auto px-2 sm:px-4 lg:px-6 pt-3 sm:pt-6">
+        <div className="rounded-2xl sm:rounded-3xl lg:rounded-[36px] overflow-hidden shadow-2xl border border-stone-800 bg-stone-950 text-white relative">
           <Swiper
             modules={[Autoplay, Pagination, Navigation]}
             spaceBetween={0}
@@ -113,42 +113,42 @@ export default function HomePage() {
             {heroSlides.map((slide) => (
               <SwiperSlide key={slide.id}>
                 <div
-                  className={`relative w-full bg-gradient-to-br ${slide.bgGradient} p-6 sm:p-12 lg:p-16 flex items-center min-h-[500px] sm:min-h-[560px]`}
+                  className={`relative w-full bg-gradient-to-br ${slide.bgGradient} p-5 sm:p-10 lg:p-14 xl:p-20 flex items-center min-h-[460px] sm:min-h-[520px] lg:min-h-[580px] xl:min-h-[620px]`}
                 >
                   {/* Subtle Grid Ambient Texture */}
-                  <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none" />
+                  <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
 
                   {/* 2-Column Responsive Grid */}
-                  <div className="relative z-10 w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                  <div className="relative z-10 w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-center">
                     {/* Left Column: Headline, Description & CTAs */}
-                    <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-                      <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border text-xs font-bold tracking-wider backdrop-blur-md mx-auto lg:mx-0 shadow-sm">
+                    <div className="lg:col-span-7 xl:col-span-8 space-y-4 sm:space-y-6 text-center lg:text-left">
+                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border text-xs font-bold tracking-wider backdrop-blur-md mx-auto lg:mx-0 shadow-sm">
                         <Sparkles className="w-3.5 h-3.5 text-orange-400" />
                         <span>{slide.tag}</span>
                       </div>
 
-                      <h1 className="font-serif text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-black text-white leading-[1.12] tracking-tight">
+                      <h1 className="font-serif text-2xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-black text-white leading-[1.12] tracking-tight">
                         {slide.title}
                       </h1>
 
-                      <p className="text-sm sm:text-base lg:text-lg text-stone-300 font-normal leading-relaxed max-w-xl mx-auto lg:mx-0">
+                      <p className="text-xs sm:text-base lg:text-lg xl:text-xl text-stone-300 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0">
                         {slide.desc}
                       </p>
 
                       {/* Action Buttons */}
-                      <div className="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-4">
+                      <div className="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4">
                         <Link
                           href="/books"
-                          className="px-7 py-3.5 rounded-2xl bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-semibold text-sm sm:text-base shadow-lg shadow-orange-600/30 flex items-center gap-2.5 transition-all hover:gap-3.5 hover:scale-[1.02]"
+                          className="px-6 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white font-semibold text-xs sm:text-base shadow-lg shadow-orange-600/30 flex items-center gap-2 transition-all hover:gap-3 hover:scale-[1.02]"
                         >
-                          <BookOpen className="w-5 h-5" />
+                          <BookOpen className="w-4 h-4 sm:w-5 sm:h-5" />
                           <span>{slide.cta}</span>
-                          <ArrowRight className="w-4 h-4" />
+                          <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                         </Link>
 
                         <Link
                           href="/add-book"
-                          className="px-6 py-3.5 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-medium text-sm sm:text-base backdrop-blur-md border border-white/20 transition-all hover:scale-[1.02]"
+                          className="px-5 sm:px-7 py-3 sm:py-4 rounded-xl sm:rounded-2xl bg-white/10 hover:bg-white/20 text-white font-medium text-xs sm:text-base backdrop-blur-md border border-white/20 transition-all hover:scale-[1.02]"
                         >
                           Share a Book
                         </Link>
@@ -158,17 +158,17 @@ export default function HomePage() {
                       <div className="pt-4 flex items-center justify-center lg:justify-start gap-4 border-t border-white/10">
                         <div className="flex -space-x-2">
                           <img
-                            className="w-8 h-8 rounded-full border-2 border-stone-900 object-cover"
+                            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 border-stone-900 object-cover"
                             src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80"
                             alt="Reader"
                           />
                           <img
-                            className="w-8 h-8 rounded-full border-2 border-stone-900 object-cover"
+                            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 border-stone-900 object-cover"
                             src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80"
                             alt="Reader"
                           />
                           <img
-                            className="w-8 h-8 rounded-full border-2 border-stone-900 object-cover"
+                            className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 border-stone-900 object-cover"
                             src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80"
                             alt="Reader"
                           />
@@ -180,49 +180,51 @@ export default function HomePage() {
                             ))}
                             <span className="font-bold ml-1 text-white">4.9 / 5</span>
                           </div>
-                          <p className="text-[11px] text-stone-400">Trusted by 850+ local readers</p>
+                          <p className="text-[10px] sm:text-[11px] text-stone-400">
+                            Trusted by 850+ local readers
+                          </p>
                         </div>
                       </div>
                     </div>
 
-                    {/* Right Column: High-End Book Showcase Card (Smart 3D Depth) */}
-                    <div className="lg:col-span-5 flex justify-center lg:justify-end">
-                      <div className="relative w-full max-w-xs sm:max-w-sm group">
-                        {/* Glow Behind Card */}
-                        <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-orange-600/30 to-amber-600/30 blur-xl opacity-75 group-hover:opacity-100 transition-opacity" />
+                    {/* Right Column: High-End Book Showcase Card */}
+                    <div className="lg:col-span-5 xl:col-span-4 flex justify-center lg:justify-end">
+                      <div className="relative w-full max-w-[280px] sm:max-w-xs lg:max-w-sm group">
+                        {/* Ambient Glow */}
+                        <div className="absolute -inset-1 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-orange-600/30 to-amber-600/30 blur-xl opacity-75 group-hover:opacity-100 transition-opacity" />
 
-                        {/* Visual Card */}
-                        <div className="relative p-5 sm:p-6 rounded-3xl bg-stone-900/90 border border-stone-700/80 backdrop-blur-xl shadow-2xl space-y-4">
-                          <div className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-lg bg-stone-800">
+                        {/* Showcase Container */}
+                        <div className="relative p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-stone-900/90 border border-stone-700/80 backdrop-blur-xl shadow-2xl space-y-3 sm:space-y-4">
+                          <div className="relative aspect-[4/5] sm:aspect-[3/4] rounded-xl sm:rounded-2xl overflow-hidden shadow-lg bg-stone-800">
                             <img
                               src={slide.featuredBook.image}
                               alt={slide.featuredBook.title}
                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                             />
-                            <div className="absolute top-3 left-3">
-                              <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-orange-600 text-white shadow-md">
+                            <div className="absolute top-2 sm:top-3 left-2 sm:left-3">
+                              <span className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[10px] font-bold uppercase tracking-wider bg-orange-600 text-white shadow-md">
                                 {slide.featuredBook.category}
                               </span>
                             </div>
-                            <div className="absolute bottom-3 right-3">
-                              <span className="px-2.5 py-1 rounded-full text-[11px] font-medium bg-black/75 backdrop-blur-md text-emerald-400 border border-emerald-500/30">
+                            <div className="absolute bottom-2 sm:bottom-3 right-2 sm:right-3">
+                              <span className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[10px] sm:text-[11px] font-medium bg-black/80 backdrop-blur-md text-emerald-400 border border-emerald-500/30">
                                 {slide.featuredBook.copies}
                               </span>
                             </div>
                           </div>
 
-                          <div className="space-y-1">
-                            <h3 className="font-serif text-lg font-bold text-white line-clamp-1">
+                          <div className="space-y-0.5 sm:space-y-1">
+                            <h3 className="font-serif text-base sm:text-lg font-bold text-white line-clamp-1">
                               {slide.featuredBook.title}
                             </h3>
-                            <p className="text-xs text-stone-400">
+                            <p className="text-[11px] sm:text-xs text-stone-400">
                               by {slide.featuredBook.author}
                             </p>
                           </div>
 
                           <Link
                             href="/books"
-                            className="w-full py-2.5 rounded-xl bg-white/10 hover:bg-orange-600 text-white text-xs font-semibold flex items-center justify-center gap-2 transition-colors"
+                            className="w-full py-2 sm:py-2.5 rounded-lg sm:rounded-xl bg-white/10 hover:bg-orange-600 text-white text-[11px] sm:text-xs font-semibold flex items-center justify-center gap-1.5 sm:gap-2 transition-colors"
                           >
                             <span>Inspect & Borrow</span>
                             <ArrowRight className="w-3.5 h-3.5" />
