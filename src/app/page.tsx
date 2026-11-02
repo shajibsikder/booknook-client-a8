@@ -35,7 +35,7 @@ const bannerSlides = [
     line1: "Have finished books sitting on your shelf? Add them to BookNook today.",
     line2: "Let fellow readers discover and enjoy the stories that inspired you.",
     image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1600&q=80",
-    cta: "Share a Book",
+    cta: "Browse Books",
   },
   {
     tag: "EASY CIRCULATION",
@@ -113,8 +113,8 @@ export default function HomePage() {
                 {/* Dark Cinematic Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/35" />
 
-                {/* Left Content Container */}
-                <div className="container relative mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+                {/* Left Content Container (Aligned with Navbar max-w-[1560px]) */}
+                <div className="w-full relative mx-auto px-4 sm:px-6 lg:px-8 max-w-[1560px]">
                   <div className="max-w-4xl lg:max-w-5xl space-y-3 sm:space-y-4 text-white">
                     <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500/20 text-orange-300 border border-orange-500/30 text-[11px] sm:text-xs font-bold tracking-wider backdrop-blur-md">
                       <Sparkles className="w-3.5 h-3.5 text-orange-400" />
