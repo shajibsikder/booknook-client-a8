@@ -61,60 +61,41 @@ export default function ProfilePage() {
         {/* Main Profile Header Card */}
         <div className="bg-white dark:bg-slate-900 rounded-3xl border border-stone-200/80 dark:border-slate-800 shadow-xl overflow-hidden">
           {/* Header Banner */}
-          <div className="h-44 sm:h-52 bg-gradient-to-r from-amber-700 via-orange-600 to-amber-600 relative overflow-hidden">
+          <div className="h-36 sm:h-44 bg-gradient-to-r from-amber-700 via-orange-600 to-amber-600 relative overflow-hidden">
             <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]" />
-            <div className="absolute top-4 right-4 sm:top-6 sm:right-6">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/20 backdrop-blur-md text-white text-xs font-medium border border-white/20">
+            <div className="absolute top-4 right-4 sm:top-5 sm:right-6">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/25 backdrop-blur-md text-white text-xs font-medium border border-white/20 shadow-sm">
                 <Sparkles className="w-3.5 h-3.5 text-amber-300" />
                 Reader Profile
               </span>
             </div>
           </div>
 
-          {/* Profile Info Section (Clean & Perfectly Aligned) */}
+          {/* Profile Details Container */}
           <div className="px-6 sm:px-10 pb-8 sm:pb-10">
-            {/* Avatar Row */}
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 -mt-20 sm:-mt-24 mb-6">
-              {/* Avatar + Main Info */}
-              <div className="flex flex-col sm:flex-row sm:items-end gap-5">
-                <div className="relative w-32 h-32 sm:w-36 sm:h-36 rounded-3xl overflow-hidden ring-4 ring-white dark:ring-slate-900 shadow-2xl bg-stone-100 dark:bg-slate-800 shrink-0">
-                  <img
-                    src={
-                      user?.photoURL ||
-                      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80"
-                    }
-                    alt={user?.name || "User Avatar"}
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src =
-                        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80";
-                    }}
-                  />
-                </div>
-
-                {/* Name, Badge & Email */}
-                <div className="space-y-1.5 pt-2">
-                  <div className="flex flex-wrap items-center gap-2.5">
-                    <h1 className="font-serif text-2xl sm:text-3xl font-extrabold text-stone-900 dark:text-white">
-                      {user?.name || "Avid Reader"}
-                    </h1>
-                    <span className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-0.5 rounded-full bg-orange-100 dark:bg-orange-950/60 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-900/60">
-                      <ShieldCheck className="w-3.5 h-3.5" />
-                      Verified Reader
-                    </span>
-                  </div>
-                  <p className="text-sm text-stone-500 dark:text-stone-400 flex items-center gap-1.5">
-                    <Mail className="w-4 h-4 text-orange-600" />
-                    <span>{user?.email}</span>
-                  </p>
-                </div>
+            {/* Top Row: Avatar overlapping banner on left + Logout action on right */}
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 -mt-14 sm:-mt-16 mb-5">
+              {/* Avatar with clear ring border */}
+              <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl sm:rounded-3xl overflow-hidden ring-4 ring-white dark:ring-slate-900 shadow-2xl bg-stone-100 dark:bg-slate-800 shrink-0">
+                <img
+                  src={
+                    user?.photoURL ||
+                    "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80"
+                  }
+                  alt={user?.name || "User Avatar"}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src =
+                      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80";
+                  }}
+                />
               </div>
 
-              {/* Logout Button */}
-              <div className="pt-2 sm:pt-0">
+              {/* Logout Button nicely placed on the right */}
+              <div className="flex items-center gap-3">
                 <button
                   onClick={() => logout()}
-                  className="px-5 py-2.5 rounded-xl border border-rose-200 dark:border-rose-900/70 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 text-sm font-semibold transition-colors flex items-center gap-2 shadow-sm"
+                  className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl border border-rose-200 dark:border-rose-900/60 bg-rose-50/70 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 hover:bg-rose-600 hover:text-white dark:hover:bg-rose-600 dark:hover:text-white text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 shadow-sm hover:shadow"
                 >
                   <LogOut className="w-4 h-4" />
                   <span>Logout</span>
@@ -122,8 +103,33 @@ export default function ProfilePage() {
               </div>
             </div>
 
+            {/* User Identity Section - Fully below banner, crisp text, zero collision */}
+            <div className="space-y-2 pb-6 border-b border-stone-200/80 dark:border-slate-800">
+              <div className="flex flex-wrap items-center gap-3">
+                <h1 className="font-serif text-2xl sm:text-3xl font-extrabold text-stone-900 dark:text-white">
+                  {user?.name || "Avid Reader"}
+                </h1>
+                <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-950/60 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-900/60">
+                  <ShieldCheck className="w-3.5 h-3.5 text-orange-600" />
+                  Verified Reader
+                </span>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-4 text-sm text-stone-500 dark:text-stone-400">
+                <p className="flex items-center gap-1.5">
+                  <Mail className="w-4 h-4 text-orange-600 shrink-0" />
+                  <span>{user?.email}</span>
+                </p>
+                <span className="hidden sm:inline text-stone-300 dark:text-stone-700">•</span>
+                <p className="flex items-center gap-1.5">
+                  <Calendar className="w-4 h-4 text-amber-600 shrink-0" />
+                  <span>Active Reader Member</span>
+                </p>
+              </div>
+            </div>
+
             {/* Membership Details Bar */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 border-t border-stone-200/80 dark:border-slate-800">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6">
               <div className="p-4 rounded-2xl bg-stone-50 dark:bg-slate-800/60 border border-stone-100 dark:border-slate-800">
                 <span className="text-[11px] uppercase font-bold text-stone-400 dark:text-stone-500 tracking-wider">
                   Membership Tier
