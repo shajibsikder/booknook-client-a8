@@ -13,6 +13,10 @@ import {
   Bookmark,
   ShieldCheck,
   TrendingUp,
+  Atom,
+  Landmark,
+  Smile,
+  Compass,
 } from "lucide-react";
 import BookCard, { Book } from "@/components/BookCard";
 
@@ -72,6 +76,44 @@ const heroSlides = [
       image: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=800&q=80",
     },
     bgGradient: "from-stone-950 via-stone-900 to-emerald-950/40",
+  },
+];
+
+const categoryCards = [
+  {
+    name: "Fiction",
+    desc: "Novels, dramas & timeless tales",
+    icon: BookOpen,
+    bgColor: "bg-orange-500/10 dark:bg-orange-950/40",
+    textColor: "text-orange-600 dark:text-orange-400",
+  },
+  {
+    name: "Science",
+    desc: "Cosmology, nature & discoveries",
+    icon: Atom,
+    bgColor: "bg-blue-500/10 dark:bg-blue-950/40",
+    textColor: "text-blue-600 dark:text-blue-400",
+  },
+  {
+    name: "History",
+    desc: "Stories from the human past",
+    icon: Landmark,
+    bgColor: "bg-amber-500/10 dark:bg-amber-950/40",
+    textColor: "text-amber-600 dark:text-amber-400",
+  },
+  {
+    name: "Kids",
+    desc: "Picture books & playful adventures",
+    icon: Smile,
+    bgColor: "bg-emerald-500/10 dark:bg-emerald-950/40",
+    textColor: "text-emerald-600 dark:text-emerald-400",
+  },
+  {
+    name: "Others",
+    desc: "Personal growth, crafts & philosophy",
+    icon: Compass,
+    bgColor: "bg-purple-500/10 dark:bg-purple-950/40",
+    textColor: "text-purple-600 dark:text-purple-400",
   },
 ];
 
@@ -241,7 +283,57 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 2. DYNAMIC NEW ARRIVALS (Latest 6 Books) */}
+      {/* 2. TOP CATEGORIES / BROWSE BY SHELF */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+          <div>
+            <div className="flex items-center gap-2 text-orange-600 dark:text-orange-400 text-xs font-bold uppercase tracking-widest mb-1.5">
+              <Sparkles className="w-4 h-4" />
+              <span>Explore Top Shelves</span>
+            </div>
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-stone-900 dark:text-white">
+              Top Categories
+            </h2>
+            <p className="text-sm text-stone-500 dark:text-stone-400 mt-1">
+              Pick a shelf and dive into curated volumes shared by community readers.
+            </p>
+          </div>
+
+          <Link
+            href="/books"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-orange-600 dark:text-orange-400 hover:text-orange-700 transition-colors"
+          >
+            <span>View All Shelves</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 sm:gap-5">
+          {categoryCards.map((cat) => (
+            <Link
+              key={cat.name}
+              href={`/books?category=${encodeURIComponent(cat.name)}`}
+              className="group p-5 rounded-3xl bg-white dark:bg-slate-900 border border-stone-200/80 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-orange-500/50 hover:-translate-y-1 transition-all flex flex-col justify-between"
+            >
+              <div
+                className={`w-12 h-12 rounded-2xl ${cat.bgColor} ${cat.textColor} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}
+              >
+                <cat.icon className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="font-serif text-base sm:text-lg font-bold text-stone-900 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">
+                  {cat.name}
+                </h3>
+                <p className="text-[11px] sm:text-xs text-stone-500 dark:text-stone-400 mt-1 line-clamp-1">
+                  {cat.desc}
+                </p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* 3. DYNAMIC NEW ARRIVALS (Latest 6 Books) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
           <div>

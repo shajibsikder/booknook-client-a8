@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import BookCard, { Book } from "@/components/BookCard";
 import { BookOpen, Search } from "lucide-react";
 
@@ -8,15 +9,27 @@ const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
 const categories = ["All", "Fiction", "Science", "History", "Kids", "Others"];
 
-export default function AllBooksPage() {
+function BooksContent() {
+  const searchParams = useSearchParams();
+  const initialCategory = searchParams.get("category");
+
   const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedCategory, setSelectedCategory] = useState(
+    initialCategory && categories.includes(initialCategory) ? initialCategory : "All"
+  );
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     document.title = "BookNook | All Books";
   }, []);
+
+  useEffect(() => {
+    const cat = searchParams.get("category");
+    if (cat && categories.includes(cat)) {
+      setSelectedCategory(cat);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     async function fetchBooks() {
@@ -40,9 +53,10 @@ export default function AllBooksPage() {
     fetchBooks();
   }, [selectedCategory]);
 
-  const filteredBooks = books.filter((b) =>
-    b.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    b.author.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredBooks = books.filter(
+    (b) =>
+      b.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      b.author.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
@@ -117,5 +131,20 @@ export default function AllBooksPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function AllBooksPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="max-w-7xl mx-auto px-4 py-20 text-center">
+          <div className="w-10 h-10 border-4 border-orange-600 border-t-transparent rounded-full animate-spin mx-auto" />
+          <p className="text-stone-500 text-sm mt-4">Loading Library Catalog...</p>
+        </div>
+      }
+    >
+      <BooksContent />
+    </Suspense>
   );
 }
