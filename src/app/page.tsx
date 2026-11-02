@@ -155,7 +155,7 @@ export default function HomePage() {
             {heroSlides.map((slide) => (
               <SwiperSlide key={slide.id}>
                 <div
-                  className={`relative w-full bg-gradient-to-br ${slide.bgGradient} p-5 sm:p-10 lg:p-14 xl:p-20 flex items-center min-h-[460px] sm:min-h-[520px] lg:min-h-[580px] xl:min-h-[620px]`}
+                  className={`relative w-full bg-gradient-to-br ${slide.bgGradient} py-10 px-5 sm:p-10 lg:p-14 xl:p-20 flex items-center min-h-[380px] sm:min-h-[480px] lg:min-h-[580px] xl:min-h-[620px]`}
                 >
                   {/* Subtle Grid Ambient Texture */}
                   <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
@@ -169,13 +169,23 @@ export default function HomePage() {
                         <span>{slide.tag}</span>
                       </div>
 
-                      <h1 className="font-serif text-2xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-black text-white leading-[1.12] tracking-tight">
+                      <h1 className="font-serif text-2xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-black text-white leading-[1.15] tracking-tight">
                         {slide.title}
                       </h1>
 
                       <p className="text-xs sm:text-base lg:text-lg xl:text-xl text-stone-300 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0">
                         {slide.desc}
                       </p>
+
+                      {/* Mobile-only featured book quick highlight badge */}
+                      <div className="lg:hidden pt-1 pb-1 flex justify-center">
+                        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs text-stone-200 shadow-sm">
+                          <BookOpen className="w-3.5 h-3.5 text-orange-400 shrink-0" />
+                          <span>
+                            Featured on shelf: <strong className="text-white">{slide.featuredBook.title}</strong>
+                          </span>
+                        </div>
+                      </div>
 
                       {/* Action Buttons */}
                       <div className="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4">
@@ -196,8 +206,8 @@ export default function HomePage() {
                         </Link>
                       </div>
 
-                      {/* Social Proof Mini-Badge */}
-                      <div className="pt-4 flex items-center justify-center lg:justify-start gap-4 border-t border-white/10">
+                      {/* Social Proof Mini-Badge (Cleanly shown on Tablet & Desktop, hidden on phone to avoid clutter) */}
+                      <div className="pt-4 hidden sm:flex items-center justify-center lg:justify-start gap-4 border-t border-white/10">
                         <div className="flex -space-x-2">
                           <img
                             className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 border-stone-900 object-cover"
@@ -229,8 +239,8 @@ export default function HomePage() {
                       </div>
                     </div>
 
-                    {/* Right Column: High-End Book Showcase Card (1:1 Ratio) */}
-                    <div className="lg:col-span-5 xl:col-span-4 flex justify-center lg:justify-end">
+                    {/* Right Column: High-End Book Showcase Card (Shown on Desktop, hidden on Phone to eliminate hibijibi stacking) */}
+                    <div className="hidden lg:flex lg:col-span-5 xl:col-span-4 justify-center lg:justify-end">
                       <div className="relative w-full max-w-[320px] sm:max-w-sm lg:max-w-[360px] group">
                         {/* Ambient Glow */}
                         <div className="absolute -inset-1 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-orange-600/30 to-amber-600/30 blur-xl opacity-75 group-hover:opacity-100 transition-opacity" />
