@@ -22,21 +22,27 @@ const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
 const bannerSlides = [
   {
-    title: "Your neighbourhood library, online",
-    text: "Find a book that someone nearby already loved, and borrow it for a week.",
-    image: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=1600&q=80",
+    tag: "OPEN COMMUNITY LIBRARY",
+    title: "Discover & Borrow Great Books",
+    line1: "Explore thousands of community-shared books in our open digital library.",
+    line2: "Pick any title you love and borrow it freely for an entire week.",
+    image: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=1600&q=80",
     cta: "Browse Books",
   },
   {
-    title: "Share the books on your shelf",
-    text: "Add the books you have finished. Let other readers enjoy them too.",
-    image: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=1600&q=80",
+    tag: "SHARE YOUR SHELF",
+    title: "Share Books From Your Shelf",
+    line1: "Have finished books sitting on your shelf? Add them to BookNook today.",
+    line2: "Let fellow readers discover and enjoy the stories that inspired you.",
+    image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1600&q=80",
     cta: "Share a Book",
   },
   {
-    title: "Borrow, read, return. Repeat.",
-    text: "Seven days for every book. Return it with one click when you are done.",
-    image: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=1600&q=80",
+    tag: "EASY CIRCULATION",
+    title: "Read, Return & Repeat Easily",
+    line1: "Enjoy effortless borrowing with instant one-click reservations.",
+    line2: "Return books on time so another curious reader can start reading.",
+    image: "https://images.unsplash.com/photo-1505664194779-8beaceb93744?w=1600&q=80",
     cta: "Browse Books",
   },
 ];
@@ -105,32 +111,38 @@ export default function HomePage() {
                 style={{ backgroundImage: `url(${slide.image})` }}
               >
                 {/* Dark Cinematic Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/25" />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/35" />
 
                 {/* Left Content Container */}
                 <div className="container relative mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-                  <div className="max-w-xl space-y-4 sm:space-y-5 text-white">
-                    <p className="text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-orange-400">
-                      BookNook
-                    </p>
-                    <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl font-bold leading-[1.12] tracking-tight text-white">
+                  <div className="max-w-2xl space-y-3 sm:space-y-4 text-white">
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500/20 text-orange-300 border border-orange-500/30 text-[11px] sm:text-xs font-bold tracking-wider backdrop-blur-md">
+                      <Sparkles className="w-3.5 h-3.5 text-orange-400" />
+                      <span>{slide.tag}</span>
+                    </div>
+
+                    <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight">
                       {slide.title}
                     </h1>
-                    <p className="text-sm sm:text-lg text-white/90 leading-relaxed max-w-lg">
-                      {slide.text}
-                    </p>
+
+                    <div className="text-xs sm:text-sm md:text-base text-stone-200 leading-relaxed space-y-0.5 max-w-xl">
+                      <p>{slide.line1}</p>
+                      <p>{slide.line2}</p>
+                    </div>
+
                     <div className="pt-2 flex flex-wrap items-center gap-3">
                       <Link
                         href="/books"
-                        className="px-6 sm:px-8 py-3 rounded-xl bg-orange-600 hover:bg-orange-700 text-white font-semibold text-sm sm:text-base shadow-lg shadow-orange-600/30 transition-all hover:scale-105 inline-flex items-center gap-2"
+                        className="px-6 sm:px-7 py-2.5 sm:py-3 rounded-xl bg-orange-600 hover:bg-orange-700 text-white font-semibold text-xs sm:text-sm shadow-lg shadow-orange-600/30 transition-all hover:scale-105 inline-flex items-center gap-2"
                       >
                         <BookOpen className="w-4 h-4" />
-                        <span>Browse Books</span>
+                        <span>{slide.cta}</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
                       </Link>
 
                       <Link
                         href="/add-book"
-                        className="px-5 sm:px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium text-sm sm:text-base backdrop-blur-md border border-white/20 transition-all"
+                        className="px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium text-xs sm:text-sm backdrop-blur-md border border-white/20 transition-all hover:scale-105"
                       >
                         Share a Book
                       </Link>
