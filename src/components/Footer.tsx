@@ -23,7 +23,7 @@ export default function Footer() {
               BookNook is a boutique digital library celebrating the timeless joy of reading. Add your favorite books, borrow curated stories, and return them effortlessly.
             </p>
             <p className="text-xs text-orange-400 font-medium italic">
-              "Add a book, borrow a book, return a book."
+              &ldquo;Add a book, borrow a book, return a book.&rdquo;
             </p>
           </div>
 
@@ -36,6 +36,9 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/books" className="hover:text-orange-400 transition-colors">All Books Catalog</Link>
+              </li>
+              <li>
+                <Link href="/about" className="hover:text-orange-400 transition-colors">About BookNook</Link>
               </li>
               <li>
                 <Link href="/add-book" className="hover:text-orange-400 transition-colors">Add New Book</Link>
@@ -126,11 +129,19 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* Bottom Bar with Working Links */}
         <div className="mt-12 pt-8 border-t border-stone-800/80 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-500 gap-4">
           <p>© {new Date().getFullYear()} BookNook Library System. All rights reserved.</p>
           <div className="flex items-center gap-6">
-            <span className="hover:text-stone-400 cursor-pointer">Privacy Policy</span>
-            <span className="hover:text-stone-400 cursor-pointer">Terms of Service</span>
+            <Link href="/about" className="hover:text-stone-300 transition-colors">
+              About Us
+            </Link>
+            <Link href="/privacy" className="hover:text-stone-300 transition-colors">
+              Privacy Policy
+            </Link>
+            <Link href="/terms" className="hover:text-stone-300 transition-colors">
+              Terms & Conditions
+            </Link>
             <span className="text-orange-500 font-medium">Variant: B14-A8-Cat_Ron</span>
           </div>
         </div>
