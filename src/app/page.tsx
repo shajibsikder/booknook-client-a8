@@ -92,7 +92,7 @@ export default function HomePage() {
 
   return (
     <div className="space-y-16 sm:space-y-24 pb-20">
-      {/* 1. HERO BANNER SLIDER (Like Instructor Demo, Fully Responsive) */}
+      {/* Hero banner slider */}
       <section className="w-full">
         <Swiper
           modules={[Autoplay, Pagination]}
@@ -113,7 +113,7 @@ export default function HomePage() {
                 {/* Dark Cinematic Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/35" />
 
-                {/* Left Content Container (Aligned with Navbar max-w-[1560px]) */}
+                {/* Left content */}
                 <div className="w-full relative mx-auto px-4 sm:px-6 lg:px-8 max-w-[1560px]">
                   <div className="max-w-4xl lg:max-w-5xl space-y-3 sm:space-y-4 text-white">
                     <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500/20 text-orange-300 border border-orange-500/30 text-[11px] sm:text-xs font-bold tracking-wider backdrop-blur-md">
@@ -155,7 +155,7 @@ export default function HomePage() {
         </Swiper>
       </section>
 
-      {/* 2. DYNAMIC NEW ARRIVALS (Left-aligned with max-w-[1560px], 4 cards per row) */}
+      {/* New arrivals */}
       <section className="w-full mx-auto px-4 sm:px-6 lg:px-8 max-w-[1560px]">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
           <div>
@@ -200,7 +200,7 @@ export default function HomePage() {
         )}
       </section>
 
-      {/* 3. HOW BORROWING WORKS (Directly inspired by instructor demo) */}
+      {/* How borrowing works */}
       <section className="bg-stone-100/70 dark:bg-slate-900/60 py-16 sm:py-20 border-y border-stone-200/80 dark:border-slate-800">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <div className="mb-12 text-center">
@@ -264,7 +264,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. TOP CATEGORIES (Directly inspired by instructor demo) */}
+      {/* Top categories */}
       <section className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <div className="mb-12 text-center">
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-stone-900 dark:text-white">

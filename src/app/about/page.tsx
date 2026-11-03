@@ -30,7 +30,6 @@ export default function AboutPage() {
 
       {/* Main Content Card */}
       <div className="bg-white dark:bg-slate-900 rounded-3xl border border-stone-200/80 dark:border-slate-800 p-6 sm:p-10 lg:p-12 shadow-sm space-y-8 text-stone-700 dark:text-stone-300 text-sm sm:text-base leading-relaxed">
-        {/* Section 1 */}
         <section className="space-y-3">
           <h2 className="font-serif text-xl sm:text-2xl font-bold text-stone-900 dark:text-white flex items-center gap-2">
             <span className="text-orange-600">01.</span> Our Mission
@@ -40,7 +39,6 @@ export default function AboutPage() {
           </p>
         </section>
 
-        {/* Section 2 */}
         <section className="space-y-3">
           <h2 className="font-serif text-xl sm:text-2xl font-bold text-stone-900 dark:text-white flex items-center gap-2">
             <span className="text-orange-600">02.</span> How BookNook Works
@@ -58,7 +56,6 @@ export default function AboutPage() {
           </ul>
         </section>
 
-        {/* Section 3 */}
         <section className="space-y-3">
           <h2 className="font-serif text-xl sm:text-2xl font-bold text-stone-900 dark:text-white flex items-center gap-2">
             <span className="text-orange-600">03.</span> Core Values
@@ -73,7 +70,6 @@ export default function AboutPage() {
           </ul>
         </section>
 
-        {/* Section 4 */}
         <section className="space-y-3 pt-2 border-t border-stone-100 dark:border-slate-800">
           <h2 className="font-serif text-xl sm:text-2xl font-bold text-stone-900 dark:text-white flex items-center gap-2">
             <span className="text-orange-600">04.</span> Get in Touch

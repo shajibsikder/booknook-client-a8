@@ -99,7 +99,6 @@ export default function BorrowModal({ isOpen, book, onClose, onSuccess }: Borrow
         )}
 
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-          {/* Book Summary Card */}
           <div className="flex items-center gap-4 p-3.5 rounded-2xl bg-stone-50 dark:bg-slate-800/60 border border-stone-100 dark:border-slate-800">
             <div className="relative w-14 h-20 shrink-0 rounded-lg overflow-hidden bg-stone-200 dark:bg-slate-700 shadow-sm flex items-center justify-center">
               <BookMarked className="w-6 h-6 text-stone-400" />
@@ -124,7 +123,6 @@ export default function BorrowModal({ isOpen, book, onClose, onSuccess }: Borrow
             </div>
           </div>
 
-          {/* User Name (Read-Only) */}
           <div>
             <label className="block text-xs font-semibold text-stone-600 dark:text-stone-400 uppercase tracking-wider mb-1">
               Reader Name
@@ -137,7 +135,6 @@ export default function BorrowModal({ isOpen, book, onClose, onSuccess }: Borrow
             />
           </div>
 
-          {/* User Email (Read-Only) */}
           <div>
             <label className="block text-xs font-semibold text-stone-600 dark:text-stone-400 uppercase tracking-wider mb-1">
               Reader Email
@@ -150,7 +147,6 @@ export default function BorrowModal({ isOpen, book, onClose, onSuccess }: Borrow
             />
           </div>
 
-          {/* Return Date */}
           <div>
             <label className="block text-xs font-semibold text-stone-600 dark:text-stone-400 uppercase tracking-wider mb-1 flex items-center gap-1.5">
               <Calendar className="w-3.5 h-3.5 text-orange-600" />

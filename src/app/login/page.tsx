@@ -97,7 +97,7 @@ function LoginForm() {
               </label>
               <button
                 type="button"
-                onClick={() => toast("Forgot Password is intentionally disabled for assignment review.", { icon: "ℹ️" })}
+                onClick={() => toast("Please contact the administrator to reset your password.", { icon: "ℹ️" })}
                 className="text-xs text-orange-600 hover:underline"
               >
                 Forgot Password?

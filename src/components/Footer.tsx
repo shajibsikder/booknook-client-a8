@@ -8,7 +8,7 @@ export default function Footer() {
   return (
     <footer className="mt-20 border-t border-stone-200/80 dark:border-stone-800 bg-stone-100/60 dark:bg-stone-900/90 text-stone-600 dark:text-stone-300">
       <div className="w-full max-w-[1560px] mx-auto grid gap-10 px-4 sm:px-6 lg:px-8 py-12 md:grid-cols-3">
-        {/* 1. Brand Description */}
+        {/* Brand */}
         <div className="space-y-3">
           <Link href="/" className="flex items-center gap-2">
             <span className="grid size-9 place-items-center rounded-xl bg-orange-600 text-white shadow-md shadow-orange-600/20">
@@ -26,7 +26,7 @@ export default function Footer() {
           </p>
         </div>
 
-        {/* 2. Contact Information */}
+        {/* Contact */}
         <div className="space-y-3 text-sm">
           <h3 className="font-serif text-lg font-bold text-stone-900 dark:text-white">
             Contact
@@ -45,18 +45,17 @@ export default function Footer() {
           </p>
         </div>
 
-        {/* 3. Follow Us & Quick Links */}
+        {/* Social links */}
         <div className="space-y-3">
           <h3 className="font-serif text-lg font-bold text-stone-900 dark:text-white">
             Follow us
           </h3>
           <div className="flex gap-2.5">
-            {/* Official X Logo */}
             <a
               href="https://x.com"
               target="_blank"
               rel="noreferrer"
-              aria-label="X (formerly Twitter)"
+              aria-label="X"
               className="grid size-10 place-items-center rounded-xl border border-stone-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-stone-700 dark:text-stone-300 hover:bg-orange-600 hover:text-white dark:hover:bg-orange-600 dark:hover:text-white hover:border-orange-600 dark:hover:border-orange-600 transition-all shadow-sm"
             >
               <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -64,7 +63,6 @@ export default function Footer() {
               </svg>
             </a>
 
-            {/* Facebook SVG */}
             <a
               href="https://facebook.com"
               target="_blank"
@@ -77,7 +75,6 @@ export default function Footer() {
               </svg>
             </a>
 
-            {/* Instagram SVG */}
             <a
               href="https://instagram.com"
               target="_blank"

@@ -58,9 +58,7 @@ export default function ProfilePage() {
   return (
     <ProtectedRoute>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-8">
-        {/* Main Profile Header Card */}
         <div className="bg-white dark:bg-slate-900 rounded-3xl border border-stone-200/80 dark:border-slate-800 shadow-xl overflow-hidden">
-          {/* Header Banner */}
           <div className="h-36 sm:h-44 bg-gradient-to-r from-amber-700 via-orange-600 to-amber-600 relative overflow-hidden">
             <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]" />
             <div className="absolute top-4 right-4 sm:top-5 sm:right-6">
@@ -71,11 +69,8 @@ export default function ProfilePage() {
             </div>
           </div>
 
-          {/* Profile Details Container */}
           <div className="px-6 sm:px-10 pb-8 sm:pb-10">
-            {/* Top Row: Avatar overlapping banner on left + Logout action on right */}
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 -mt-14 sm:-mt-16 mb-5">
-              {/* Avatar with clear ring border */}
               <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl sm:rounded-3xl overflow-hidden ring-4 ring-white dark:ring-slate-900 shadow-2xl bg-stone-100 dark:bg-slate-800 shrink-0">
                 <img
                   src={
@@ -91,7 +86,6 @@ export default function ProfilePage() {
                 />
               </div>
 
-              {/* Logout Button nicely placed on the right */}
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => logout()}
@@ -103,7 +97,6 @@ export default function ProfilePage() {
               </div>
             </div>
 
-            {/* User Identity Section - Fully below banner, crisp text, zero collision */}
             <div className="space-y-2 pb-6 border-b border-stone-200/80 dark:border-slate-800">
               <div className="flex flex-wrap items-center gap-3">
                 <h1 className="font-serif text-2xl sm:text-3xl font-extrabold text-stone-900 dark:text-white">
@@ -128,7 +121,6 @@ export default function ProfilePage() {
               </div>
             </div>
 
-            {/* Membership Details Bar */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6">
               <div className="p-4 rounded-2xl bg-stone-50 dark:bg-slate-800/60 border border-stone-100 dark:border-slate-800">
                 <span className="text-[11px] uppercase font-bold text-stone-400 dark:text-stone-500 tracking-wider">
@@ -155,8 +147,8 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* Activity & Quick Action Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-stone-200/80 dark:border-slate-800 shadow-sm flex flex-col justify-between space-y-5 hover:border-amber-300 dark:hover:border-slate-700 transition-colors">
           {/* Contributed Books Card */}
           <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-stone-200/80 dark:border-slate-800 shadow-sm flex flex-col justify-between space-y-5 hover:border-amber-300 dark:hover:border-slate-700 transition-colors">
             <div className="flex items-center justify-between">

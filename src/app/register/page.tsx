@@ -25,10 +25,7 @@ export default function RegisterPage() {
     }
   }, [user, router]);
 
-  // Mandatory Assignment Password Validation Rules:
-  // 1. Must have an Uppercase letter
-  // 2. Must have a Lowercase letter
-  // 3. Length must be at least 6 characters
+  // Validate password
   const validatePassword = (pass: string): string | null => {
     if (pass.length < 6) {
       return "Password length must be at least 6 characters";
@@ -63,7 +60,6 @@ export default function RegisterPage() {
     setSubmitting(false);
 
     if (success) {
-      // Per assignment requirement: navigate them to Login page
       router.push("/login");
     }
   };
@@ -71,7 +67,6 @@ export default function RegisterPage() {
   const handleGoogleSignIn = async () => {
     const success = await googleLogin();
     if (success) {
-      // Per requirement: navigate user to Home page
       router.push("/");
     }
   };
@@ -198,7 +193,6 @@ export default function RegisterPage() {
             </div>
           </div>
 
-          {/* Register Button */}
           <button
             type="submit"
             disabled={submitting}
@@ -209,7 +203,6 @@ export default function RegisterPage() {
           </button>
         </form>
 
-        {/* Divider */}
         <div className="relative my-4">
           <div className="absolute inset-0 flex items-center">
             <div className="w-full border-t border-stone-200 dark:border-slate-800" />
@@ -219,7 +212,6 @@ export default function RegisterPage() {
           </div>
         </div>
 
-        {/* Google Social Login */}
         <button
           type="button"
           onClick={handleGoogleSignIn}
@@ -246,7 +238,6 @@ export default function RegisterPage() {
           <span>Continue with Google</span>
         </button>
 
-        {/* Link to Login */}
         <p className="text-center text-xs text-stone-500 dark:text-stone-400">
           Already have a reader account?{" "}
           <Link href="/login" className="font-semibold text-orange-600 hover:underline">

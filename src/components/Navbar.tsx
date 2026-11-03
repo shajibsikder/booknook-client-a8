@@ -30,7 +30,7 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Close dropdown when clicked outside
+  // Close dropdown on click outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -41,7 +41,7 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Lock body scroll when mobile drawer is open (YouTube/News style)
+  // Lock body scroll when mobile menu is open
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -60,9 +60,8 @@ export default function Navbar() {
       <nav className="sticky top-0 z-40 backdrop-blur-md bg-white/80 dark:bg-slate-900/80 border-b border-stone-200 dark:border-slate-800 transition-colors">
         <div className="w-full max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            {/* Left: Mobile Trigger + Brand Logo + Left-Aligned Nav Menu */}
             <div className="flex items-center gap-3 md:gap-6 lg:gap-8">
-              {/* Hamburger Button (Mobile Only) */}
+              {/* Mobile menu button */}
               <button
                 onClick={() => setMobileMenuOpen(true)}
                 className="md:hidden p-2 rounded-xl text-stone-600 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-slate-800 transition-colors"
@@ -71,7 +70,7 @@ export default function Navbar() {
                 <Menu className="w-6 h-6" />
               </button>
 
-              {/* Logo & Brand Name (Clean, without Online Library subtitle) */}
+              {/* Brand logo */}
               <Link href="/" className="flex items-center gap-2.5 group">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-700 via-orange-600 to-amber-500 flex items-center justify-center text-white shadow-md shadow-orange-500/20 group-hover:scale-105 transition-transform">
                   <BookOpen className="w-5 h-5" />
@@ -81,7 +80,7 @@ export default function Navbar() {
                 </span>
               </Link>
 
-              {/* Desktop Nav Links (Left Aligned beside Logo, like Reference Screenshot) */}
+              {/* Desktop links */}
               <div className="hidden md:flex items-center gap-1 lg:gap-2">
                 <Link
                   href="/"
@@ -247,11 +246,7 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* ========================================================================= */}
-      {/* YOUTUBE / NEWS STYLE SLIDE-OUT LEFT DRAWER OVERLAY (ZERO HERO MOVEMENT)   */}
-      {/* ========================================================================= */}
-
-      {/* 1. Frosted Backdrop */}
+      {/* Mobile drawer backdrop */}
       <div
         className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-50 transition-opacity duration-300 ${
           mobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
@@ -260,14 +255,14 @@ export default function Navbar() {
         aria-hidden="true"
       />
 
-      {/* 2. Slide-Out Drawer (Fixed Over Screen, Leaves Hero Stationary) */}
+      {/* Mobile drawer panel */}
       <aside
         className={`fixed inset-y-0 left-0 z-50 w-[290px] sm:w-[320px] max-w-[85vw] bg-white dark:bg-slate-900 border-r border-stone-200 dark:border-slate-800 shadow-2xl flex flex-col justify-between transform transition-transform duration-300 ease-in-out ${
           mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         <div className="flex flex-col h-full overflow-hidden">
-          {/* Drawer Top Branding & Close Button */}
+          {/* Drawer header */}
           <div className="flex items-center justify-between p-4 sm:p-5 border-b border-stone-200 dark:border-slate-800 shrink-0">
             <Link
               href="/"
@@ -319,7 +314,7 @@ export default function Navbar() {
             </div>
           )}
 
-          {/* Navigation Items (YouTube News Style) */}
+          {/* Navigation items */}
           <nav className="flex-1 px-3 py-2 space-y-1 overflow-y-auto">
             <Link
               href="/"

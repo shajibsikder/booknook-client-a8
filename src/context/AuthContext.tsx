@@ -28,7 +28,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
-  // Restore session from localStorage on initial mount (prevents redirect to login on reload)
+  // Restore user session on mount
   useEffect(() => {
     try {
       const storedUser = localStorage.getItem("booknook_user");
@@ -47,7 +47,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  // Request JWT token from backend
+  // Get JWT token from backend
   const requestJWT = async (email: string, name?: string) => {
     try {
       const res = await fetch(`${API_BASE}/jwt`, {
