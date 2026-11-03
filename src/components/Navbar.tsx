@@ -440,18 +440,7 @@ export default function Navbar() {
           </nav>
 
           {/* Drawer Bottom Actions */}
-          <div className="p-4 border-t border-stone-200 dark:border-slate-800 space-y-3 bg-stone-50/80 dark:bg-slate-900/80 shrink-0">
-            <div className="flex items-center justify-between">
-              <span className="text-xs text-stone-500 dark:text-stone-400 font-medium">Dark / Light Mode</span>
-              <button
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="p-2 rounded-xl bg-white dark:bg-slate-800 border border-stone-200 dark:border-slate-700 text-stone-600 dark:text-stone-300 shadow-sm"
-                aria-label="Toggle theme in drawer"
-              >
-                {theme === "dark" ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4" />}
-              </button>
-            </div>
-
+          <div className="p-4 border-t border-stone-200 dark:border-slate-800 bg-stone-50/80 dark:bg-slate-900/80 shrink-0">
             {user ? (
               <button
                 onClick={() => {
