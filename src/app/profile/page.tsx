@@ -8,7 +8,6 @@ import {
   Mail,
   BookOpen,
   BookMarked,
-  ShieldCheck,
   Calendar,
   ArrowRight,
   LogOut,
@@ -73,15 +72,11 @@ export default function ProfilePage() {
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 -mt-14 sm:-mt-16 mb-5">
               <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl sm:rounded-3xl overflow-hidden ring-4 ring-white dark:ring-slate-900 shadow-2xl bg-stone-100 dark:bg-slate-800 shrink-0">
                 <img
-                  src={
-                    user?.photoURL ||
-                    "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80"
-                  }
+                  src={user?.photoURL || "/avatar.jpg"}
                   alt={user?.name || "User Avatar"}
                   className="w-full h-full object-cover"
                   onError={(e) => {
-                    (e.target as HTMLImageElement).src =
-                      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80";
+                    (e.target as HTMLImageElement).src = "/avatar.jpg";
                   }}
                 />
               </div>
@@ -102,10 +97,6 @@ export default function ProfilePage() {
                 <h1 className="font-serif text-2xl sm:text-3xl font-extrabold text-stone-900 dark:text-white">
                   {user?.name || "Avid Reader"}
                 </h1>
-                <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full bg-orange-100 dark:bg-orange-950/60 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-900/60">
-                  <ShieldCheck className="w-3.5 h-3.5 text-orange-600" />
-                  Verified Reader
-                </span>
               </div>
 
               <div className="flex flex-wrap items-center gap-4 text-sm text-stone-500 dark:text-stone-400">

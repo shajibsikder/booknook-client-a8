@@ -35,7 +35,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const storedToken = localStorage.getItem("booknook_token");
 
       if (storedUser) {
-        setUser(JSON.parse(storedUser));
+        const parsed = JSON.parse(storedUser);
+        if (parsed.email === "google.reader@gmail.com" || parsed.email === "google@gmail.com") {
+          parsed.email = "google@gmail.com";
+          parsed.photoURL = "/avatar.jpg";
+          localStorage.setItem("booknook_user", JSON.stringify(parsed));
+        }
+        setUser(parsed);
       }
       if (storedToken) {
         setToken(storedToken);
@@ -147,8 +153,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       const googleUser: User = {
         name: "Google Reader",
-        email: "google.reader@gmail.com",
-        photoURL: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=400&q=80",
+        email: "google@gmail.com",
+        photoURL: "/avatar.jpg",
       };
 
       setUser(googleUser);

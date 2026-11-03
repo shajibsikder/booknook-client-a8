@@ -171,15 +171,11 @@ export default function Navbar() {
                     aria-label="User Profile menu"
                   >
                     <img
-                      src={
-                        user.photoURL ||
-                        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80"
-                      }
+                      src={user.photoURL || "/avatar.jpg"}
                       alt={user.name}
                       className="w-8 h-8 rounded-full object-cover"
                       onError={(e) => {
-                        (e.target as HTMLImageElement).src =
-                          "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80";
+                        (e.target as HTMLImageElement).src = "/avatar.jpg";
                       }}
                     />
                   </button>
@@ -291,15 +287,11 @@ export default function Navbar() {
             <div className="p-3 mx-3 my-3 rounded-2xl bg-stone-50 dark:bg-slate-800/60 border border-stone-200/80 dark:border-slate-700/80 shrink-0">
               <div className="flex items-center gap-3">
                 <img
-                  src={
-                    user.photoURL ||
-                    "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80"
-                  }
+                  src={user.photoURL || "/avatar.jpg"}
                   alt={user.name}
                   className="w-10 h-10 rounded-xl object-cover ring-2 ring-orange-500/30 shrink-0"
                   onError={(e) => {
-                    (e.target as HTMLImageElement).src =
-                      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80";
+                    (e.target as HTMLImageElement).src = "/avatar.jpg";
                   }}
                 />
                 <div className="min-w-0 flex-1">
