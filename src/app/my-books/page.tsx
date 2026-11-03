@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import CustomConfirmModal from "@/components/CustomConfirmModal";
-import { Library, Edit3, Trash2, PlusCircle, BookOpen, X, UploadCloud } from "lucide-react";
+import { Library, Edit3, Trash2, PlusCircle, BookOpen, X } from "lucide-react";
 import toast from "react-hot-toast";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
@@ -74,22 +74,6 @@ export default function MyBooksPage() {
     setEditModalOpen(true);
   };
 
-  const handleEditFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    if (file.size > 5 * 1024 * 1024) {
-      toast.error("File is too large! Please choose an image under 5MB.");
-      return;
-    }
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const result = event.target?.result as string;
-      setEditForm((prev) => ({ ...prev, image: result }));
-      toast.success("New image loaded from PC!");
-    };
-    reader.readAsDataURL(file);
-  };
-
   // Submit Update
   const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -155,14 +139,10 @@ export default function MyBooksPage() {
 
   return (
     <ProtectedRoute>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-10">
+      <div className="w-full max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-8">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 text-xs font-semibold mb-2">
-              <Library className="w-3.5 h-3.5" />
-              <span>Personal Circulation</span>
-            </div>
             <h1 className="font-serif text-3xl sm:text-4xl font-bold text-stone-900 dark:text-white">
               My Books
             </h1>
@@ -365,31 +345,15 @@ export default function MyBooksPage() {
                 </div>
 
                 <div>
-                  <div className="flex items-center justify-between mb-1">
-                    <label className="text-xs font-semibold uppercase tracking-wider text-stone-600 dark:text-stone-300">
-                      Cover Image
-                    </label>
-                    <label
-                      htmlFor="edit-cover-upload"
-                      className="cursor-pointer text-xs font-semibold text-orange-600 dark:text-orange-400 hover:underline flex items-center gap-1"
-                    >
-                      <UploadCloud className="w-3.5 h-3.5" />
-                      <span>Choose from PC</span>
-                    </label>
-                    <input
-                      id="edit-cover-upload"
-                      type="file"
-                      accept="image/*"
-                      onChange={handleEditFileUpload}
-                      className="hidden"
-                    />
-                  </div>
+                  <label className="block text-xs font-semibold uppercase tracking-wider text-stone-600 dark:text-stone-300 mb-1">
+                    Book Cover Image URL
+                  </label>
                   <input
-                    type="text"
+                    type="url"
                     required
                     value={editForm.image}
                     onChange={(e) => setEditForm({ ...editForm, image: e.target.value })}
-                    placeholder="URL or select file from PC above"
+                    placeholder="https://images.unsplash.com/..."
                     className="w-full px-4 py-2.5 rounded-xl border border-stone-200 dark:border-slate-700 bg-stone-50 dark:bg-slate-800 text-stone-900 dark:text-white text-sm"
                   />
                   {editForm.image && (
