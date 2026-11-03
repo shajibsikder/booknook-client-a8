@@ -36,7 +36,7 @@ function LoginForm() {
     if (success) {
       router.push(redirectUrl);
     } else {
-      setFormError("Invalid credentials. Try demo credentials or register a new reader account.");
+      setFormError("Invalid email or password. Please try again.");
     }
   };
 
@@ -45,11 +45,6 @@ function LoginForm() {
     if (success) {
       router.push(redirectUrl);
     }
-  };
-
-  const fillDemoCredentials = () => {
-    setEmail("reader@booknook.com");
-    setPassword("Reader123");
   };
 
   return (
@@ -65,22 +60,11 @@ function LoginForm() {
             </span>
           </Link>
           <h2 className="font-serif text-3xl font-bold text-stone-900 dark:text-white">
-            Welcome Back, Reader
+            Welcome Back
           </h2>
           <p className="text-sm text-stone-500 dark:text-stone-400">
-            Sign in to access your borrowed books and borrow new stories.
+            Sign in to manage your books and library borrows.
           </p>
-        </div>
-
-        <div className="p-3 bg-amber-50 dark:bg-amber-950/30 border border-amber-200/60 dark:border-amber-900/40 rounded-2xl flex items-center justify-between text-xs text-amber-800 dark:text-amber-300">
-          <span>Need quick test credentials?</span>
-          <button
-            type="button"
-            onClick={fillDemoCredentials}
-            className="font-semibold underline hover:text-orange-600"
-          >
-            Auto-Fill Demo User
-          </button>
         </div>
 
         {formError && (
@@ -98,7 +82,7 @@ function LoginForm() {
             <input
               type="email"
               required
-              placeholder="reader@booknook.com"
+              placeholder="e.g. admin@gmail.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full px-4 py-3 rounded-xl border border-stone-200 dark:border-slate-700 bg-stone-50 dark:bg-slate-800 text-stone-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"

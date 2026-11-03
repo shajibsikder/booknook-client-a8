@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import CustomConfirmModal from "@/components/CustomConfirmModal";
-import { Library, Edit3, Trash2, PlusCircle, BookOpen, X } from "lucide-react";
+import { Library, Edit3, Trash2, PlusCircle, BookOpen, X, UploadCloud } from "lucide-react";
 import toast from "react-hot-toast";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
@@ -72,6 +72,22 @@ export default function MyBooksPage() {
       totalCopies: b.totalCopies,
     });
     setEditModalOpen(true);
+  };
+
+  const handleEditFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("File is too large! Please choose an image under 5MB.");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const result = event.target?.result as string;
+      setEditForm((prev) => ({ ...prev, image: result }));
+      toast.success("New image loaded from PC!");
+    };
+    reader.readAsDataURL(file);
   };
 
   // Submit Update
@@ -349,16 +365,47 @@ export default function MyBooksPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-stone-600 dark:text-stone-300 mb-1">
-                    Cover Image URL
-                  </label>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="text-xs font-semibold uppercase tracking-wider text-stone-600 dark:text-stone-300">
+                      Cover Image
+                    </label>
+                    <label
+                      htmlFor="edit-cover-upload"
+                      className="cursor-pointer text-xs font-semibold text-orange-600 dark:text-orange-400 hover:underline flex items-center gap-1"
+                    >
+                      <UploadCloud className="w-3.5 h-3.5" />
+                      <span>Choose from PC</span>
+                    </label>
+                    <input
+                      id="edit-cover-upload"
+                      type="file"
+                      accept="image/*"
+                      onChange={handleEditFileUpload}
+                      className="hidden"
+                    />
+                  </div>
                   <input
-                    type="url"
+                    type="text"
                     required
                     value={editForm.image}
                     onChange={(e) => setEditForm({ ...editForm, image: e.target.value })}
+                    placeholder="URL or select file from PC above"
                     className="w-full px-4 py-2.5 rounded-xl border border-stone-200 dark:border-slate-700 bg-stone-50 dark:bg-slate-800 text-stone-900 dark:text-white text-sm"
                   />
+                  {editForm.image && (
+                    <div className="mt-2 flex items-center gap-3 p-2 rounded-xl bg-stone-50 dark:bg-slate-800 border border-stone-200 dark:border-slate-700">
+                      <img
+                        src={editForm.image}
+                        alt="Preview"
+                        className="w-10 h-14 object-cover rounded-md"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src =
+                            "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=800&q=80";
+                        }}
+                      />
+                      <span className="text-xs text-stone-500">Preview</span>
+                    </div>
+                  )}
                 </div>
 
                 <div>

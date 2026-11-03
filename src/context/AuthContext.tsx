@@ -75,8 +75,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       let matchedUser = registeredUsers.find((u: any) => u.email.toLowerCase() === email.toLowerCase());
 
       if (!matchedUser) {
-        // Fallback demo user if logging in with demo credentials
-        if (email === "reader@booknook.com" && pass.length >= 6) {
+        if (email.toLowerCase() === "admin@gmail.com" && pass === "123456") {
+          matchedUser = {
+            name: "Admin",
+            email: "admin@gmail.com",
+            photoURL: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=400&q=80",
+            password: pass,
+          };
+        } else if (email.toLowerCase() === "reader@booknook.com" && pass.length >= 6) {
           matchedUser = {
             name: "Dev Reader",
             email: "reader@booknook.com",

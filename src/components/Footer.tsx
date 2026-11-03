@@ -26,22 +26,22 @@ export default function Footer() {
           </p>
         </div>
 
-        {/* 2. Contact Information (Exact match with demo site) */}
+        {/* 2. Contact Information */}
         <div className="space-y-3 text-sm">
           <h3 className="font-serif text-lg font-bold text-stone-900 dark:text-white">
             Contact
           </h3>
           <p className="flex items-center gap-2 text-stone-600 dark:text-stone-400">
             <Mail className="w-4 h-4 text-orange-600 shrink-0" />
-            <span>hello@booknook.app</span>
+            <span>booknook.bd@gmail.com</span>
           </p>
           <p className="flex items-center gap-2 text-stone-600 dark:text-stone-400">
             <Phone className="w-4 h-4 text-orange-600 shrink-0" />
-            <span>+880 1700 000 000</span>
+            <span>+880 1712-345678</span>
           </p>
           <p className="flex items-center gap-2 text-stone-600 dark:text-stone-400">
             <MapPin className="w-4 h-4 text-orange-600 shrink-0" />
-            <span>12 Reading Lane, Dhaka</span>
+            <span>Dhanmondi, Dhaka, Bangladesh</span>
           </p>
         </div>
 
