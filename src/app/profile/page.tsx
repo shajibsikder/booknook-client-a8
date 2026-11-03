@@ -149,8 +149,6 @@ export default function ProfilePage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-stone-200/80 dark:border-slate-800 shadow-sm flex flex-col justify-between space-y-5 hover:border-amber-300 dark:hover:border-slate-700 transition-colors">
-          {/* Contributed Books Card */}
-          <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-stone-200/80 dark:border-slate-800 shadow-sm flex flex-col justify-between space-y-5 hover:border-amber-300 dark:hover:border-slate-700 transition-colors">
             <div className="flex items-center justify-between">
               <div className="w-14 h-14 rounded-2xl bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 flex items-center justify-center">
                 <BookOpen className="w-7 h-7" />
