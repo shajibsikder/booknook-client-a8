@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { User, Tag, ArrowRight, BookOpen } from "lucide-react";
 
@@ -26,19 +26,25 @@ const categoryStyles: Record<string, string> = {
 };
 
 export default function BookCard({ book }: { book: Book }) {
+  const [hasImgError, setHasImgError] = useState(false);
+
   return (
     <article className="group flex flex-col h-full bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-stone-200/90 dark:border-slate-800 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-orange-500/40 dark:hover:border-orange-500/30 transition-all duration-300">
-      {/* Book Cover Image Container (Clean, pure cover without distracting overlay badges) */}
-      <div className="relative aspect-[3/4] overflow-hidden bg-stone-100 dark:bg-slate-800">
-        <img
-          src={book.image}
-          alt={book.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
-          onError={(e) => {
-            (e.target as HTMLImageElement).src =
-              "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=800&q=80";
-          }}
-        />
+      {/* Book Cover Image Container */}
+      <div className="relative aspect-[3/4] overflow-hidden bg-stone-100 dark:bg-slate-800 flex items-center justify-center">
+        {hasImgError || !book.image ? (
+          <div className="w-full h-full flex flex-col items-center justify-center p-4 bg-stone-100 dark:bg-slate-800 text-stone-400 dark:text-stone-500">
+            <BookOpen className="w-10 h-10 mb-1.5 stroke-1" />
+            <span className="text-[11px] text-center font-medium">No cover image</span>
+          </div>
+        ) : (
+          <img
+            src={book.image}
+            alt={book.title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+            onError={() => setHasImgError(true)}
+          />
+        )}
       </div>
 
       {/* Book Information (Smart, compact layout for 5 cards per row) */}

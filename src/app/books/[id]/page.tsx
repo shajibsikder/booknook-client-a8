@@ -5,7 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import BorrowModal from "@/components/BorrowModal";
-import { User, Tag, Calendar, ArrowLeft, BookMarked, CheckCircle2, AlertCircle } from "lucide-react";
+import { User, Tag, Calendar, ArrowLeft, BookMarked, CheckCircle2, AlertCircle, BookOpen } from "lucide-react";
 import toast from "react-hot-toast";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
@@ -70,17 +70,20 @@ export default function BookDetailsPage() {
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 p-6 sm:p-10 lg:p-12">
               {/* Left Column: Book Image */}
               <div className="md:col-span-5 flex flex-col items-center">
-                <div className="relative w-full aspect-[3/4] max-w-sm rounded-2xl overflow-hidden shadow-2xl bg-stone-100 dark:bg-slate-800">
+                <div className="relative w-full aspect-[3/4] max-w-sm rounded-2xl overflow-hidden shadow-2xl bg-stone-100 dark:bg-slate-800 flex items-center justify-center">
+                  <BookOpen className="w-16 h-16 text-stone-400 stroke-1" />
                   <img
                     src={book.image}
                     alt={book.title}
-                    className="w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-cover"
                     onError={(e) => {
-                      (e.target as HTMLImageElement).src =
-                        "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=800&q=80";
+                      (e.target as HTMLElement).style.display = "none";
+                    }}
+                    onLoad={(e) => {
+                      (e.target as HTMLElement).style.display = "block";
                     }}
                   />
-                  <div className="absolute top-4 left-4">
+                  <div className="absolute top-4 left-4 z-10">
                     <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-orange-600 text-white shadow-md">
                       {book.category}
                     </span>

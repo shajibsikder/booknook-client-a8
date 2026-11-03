@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import CustomConfirmModal from "@/components/CustomConfirmModal";
-import { Library, Edit3, Trash2, PlusCircle, BookOpen, X, AlertCircle, CheckCircle2 } from "lucide-react";
+import { Library, Edit3, Trash2, PlusCircle, BookOpen, X } from "lucide-react";
 import toast from "react-hot-toast";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
@@ -33,7 +33,6 @@ export default function MyBooksPage() {
     description: "",
     totalCopies: 1,
   });
-  const [editImageError, setEditImageError] = useState(false);
   const [updating, setUpdating] = useState(false);
 
   useEffect(() => {
@@ -64,7 +63,6 @@ export default function MyBooksPage() {
   // Open Edit Modal with prefilled data
   const handleOpenEdit = (b: any) => {
     setEditingBook(b);
-    setEditImageError(false);
     setEditForm({
       title: b.title,
       author: b.author,
@@ -80,12 +78,6 @@ export default function MyBooksPage() {
   const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingBook) return;
-
-    if (editImageError) {
-      toast.error("Please provide a valid, working image URL before saving!");
-      return;
-    }
-
     setUpdating(true);
 
     try {
@@ -193,15 +185,20 @@ export default function MyBooksPage() {
                     <tr key={b._id} className="hover:bg-stone-50/70 dark:hover:bg-slate-800/40 transition-colors">
                       <td className="py-4 px-6">
                         <div className="flex items-center gap-3">
-                          <img
-                            src={b.image}
-                            alt={b.title}
-                            className="w-12 h-16 object-cover rounded-lg shadow-sm"
-                            onError={(e) => {
-                              (e.target as HTMLImageElement).src =
-                                "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=800&q=80";
-                            }}
-                          />
+                          <div className="w-12 h-16 rounded-lg overflow-hidden bg-stone-100 dark:bg-slate-800 flex items-center justify-center shrink-0 border border-stone-200/60 dark:border-slate-700/60 shadow-sm relative">
+                            <BookOpen className="w-5 h-5 text-stone-400" />
+                            <img
+                              src={b.image}
+                              alt={b.title}
+                              className="absolute inset-0 w-full h-full object-cover"
+                              onError={(e) => {
+                                (e.target as HTMLElement).style.display = "none";
+                              }}
+                              onLoad={(e) => {
+                                (e.target as HTMLElement).style.display = "block";
+                              }}
+                            />
+                          </div>
                           <div>
                             <Link href={`/books/${b._id}`} className="font-semibold text-stone-900 dark:text-white hover:text-orange-600 line-clamp-1">
                               {b.title}
@@ -360,39 +357,26 @@ export default function MyBooksPage() {
                     type="url"
                     required
                     value={editForm.image}
-                    onChange={(e) => {
-                      setEditForm({ ...editForm, image: e.target.value });
-                      setEditImageError(false);
-                    }}
+                    onChange={(e) => setEditForm({ ...editForm, image: e.target.value })}
                     placeholder="https://images.unsplash.com/..."
-                    className={`w-full px-4 py-2.5 rounded-xl border bg-stone-50 dark:bg-slate-800 text-stone-900 dark:text-white text-sm focus:outline-none focus:ring-2 ${
-                      editImageError
-                        ? "border-rose-400 focus:ring-rose-500"
-                        : "border-stone-200 dark:border-slate-700 focus:ring-orange-500"
-                    }`}
+                    className="w-full px-4 py-2.5 rounded-xl border border-stone-200 dark:border-slate-700 bg-stone-50 dark:bg-slate-800 text-stone-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
                   />
                   {editForm.image.trim() && (
-                    <div className="mt-2.5">
-                      {editImageError ? (
-                        <div className="flex items-center gap-2.5 p-2.5 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/60 text-rose-700 dark:text-rose-300 text-xs">
-                          <AlertCircle className="w-4 h-4 shrink-0 text-rose-500" />
-                          <span>Invalid image link. This URL could not be loaded as an image.</span>
-                        </div>
-                      ) : (
-                        <div className="flex items-center gap-3 p-2 rounded-xl bg-stone-50 dark:bg-slate-800 border border-stone-200 dark:border-slate-700">
-                          <img
-                            src={editForm.image}
-                            alt="Preview"
-                            className="w-10 h-14 object-cover rounded-md"
-                            onLoad={() => setEditImageError(false)}
-                            onError={() => setEditImageError(true)}
-                          />
-                          <div className="flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400 font-medium">
-                            <CheckCircle2 className="w-3.5 h-3.5" />
-                            <span>Valid Image Preview</span>
-                          </div>
-                        </div>
-                      )}
+                    <div className="mt-2.5 flex items-center gap-3 p-2 rounded-xl bg-stone-50 dark:bg-slate-800 border border-stone-200 dark:border-slate-700">
+                      <div className="w-10 h-14 rounded-md overflow-hidden bg-stone-200 dark:bg-slate-700 flex items-center justify-center shrink-0">
+                        <img
+                          src={editForm.image}
+                          alt="Preview"
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            (e.target as HTMLElement).style.display = "none";
+                          }}
+                          onLoad={(e) => {
+                            (e.target as HTMLElement).style.display = "block";
+                          }}
+                        />
+                      </div>
+                      <span className="text-xs text-stone-500 dark:text-stone-400">Cover Preview</span>
                     </div>
                   )}
                 </div>

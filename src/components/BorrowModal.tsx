@@ -102,13 +102,16 @@ export default function BorrowModal({ isOpen, book, onClose, onSuccess }: Borrow
           {/* Book Summary Card */}
           <div className="flex items-center gap-4 p-3.5 rounded-2xl bg-stone-50 dark:bg-slate-800/60 border border-stone-100 dark:border-slate-800">
             <div className="relative w-14 h-20 shrink-0 rounded-lg overflow-hidden bg-stone-200 dark:bg-slate-700 shadow-sm flex items-center justify-center">
+              <BookMarked className="w-6 h-6 text-stone-400" />
               <img
-                src={book.image || "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=800&q=80"}
+                src={book.image}
                 alt={book.title}
-                className="w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-cover"
                 onError={(e) => {
-                  (e.target as HTMLImageElement).src =
-                    "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=800&q=80";
+                  (e.target as HTMLElement).style.display = "none";
+                }}
+                onLoad={(e) => {
+                  (e.target as HTMLElement).style.display = "block";
                 }}
               />
             </div>
