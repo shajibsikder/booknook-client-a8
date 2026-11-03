@@ -33,15 +33,15 @@ export default function Footer() {
           </h3>
           <p className="flex items-center gap-2 text-stone-600 dark:text-stone-400">
             <Mail className="w-4 h-4 text-orange-600 shrink-0" />
-            <span>booknook.bd@gmail.com</span>
+            <span>booknook@gmail.com</span>
           </p>
           <p className="flex items-center gap-2 text-stone-600 dark:text-stone-400">
             <Phone className="w-4 h-4 text-orange-600 shrink-0" />
-            <span>+880 1712-345678</span>
+            <span>+880 1700-000000</span>
           </p>
           <p className="flex items-center gap-2 text-stone-600 dark:text-stone-400">
             <MapPin className="w-4 h-4 text-orange-600 shrink-0" />
-            <span>Dhanmondi, Dhaka, Bangladesh</span>
+            <span>Gazipur, Dhaka, Bangladesh</span>
           </p>
         </div>
 
