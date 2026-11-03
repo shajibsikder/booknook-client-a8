@@ -100,7 +100,7 @@ export default function HomePage() {
           slidesPerView={1}
           loop={true}
           speed={800}
-          autoplay={{ delay: 2000, disableOnInteraction: false, pauseOnMouseEnter: true }}
+          autoplay={{ delay: 3000, disableOnInteraction: false, pauseOnMouseEnter: true }}
           pagination={{ clickable: true }}
           className="h-[440px] sm:h-[480px] md:h-[540px] w-full [--swiper-pagination-bullet-inactive-color:white] [--swiper-theme-color:#ea580c]"
         >
