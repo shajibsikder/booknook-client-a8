@@ -11,6 +11,8 @@ import {
   Link as LinkIcon,
   Layers,
   FileText,
+  AlertCircle,
+  CheckCircle2,
 } from "lucide-react";
 import toast from "react-hot-toast";
 
@@ -26,6 +28,8 @@ export default function AddBookPage() {
   const [author, setAuthor] = useState("");
   const [category, setCategory] = useState("Fiction");
   const [image, setImage] = useState("");
+  const [imageError, setImageError] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
   const [description, setDescription] = useState("");
   const [totalCopies, setTotalCopies] = useState(3);
   const [submitting, setSubmitting] = useState(false);
@@ -38,6 +42,11 @@ export default function AddBookPage() {
     e.preventDefault();
     if (!title.trim() || !author.trim() || !category || !image.trim() || !description.trim()) {
       toast.error("Please fill in all required fields!");
+      return;
+    }
+
+    if (imageError) {
+      toast.error("Please provide a valid, working image link!");
       return;
     }
 
@@ -171,40 +180,90 @@ export default function AddBookPage() {
                 required
                 placeholder="https://images.unsplash.com/photo-..."
                 value={image}
-                onChange={(e) => setImage(e.target.value)}
-                className="w-full px-4 py-2.5 sm:py-3 rounded-xl border border-stone-200 dark:border-slate-700 bg-stone-50 dark:bg-slate-800/80 text-stone-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
+                onChange={(e) => {
+                  setImage(e.target.value);
+                  setImageError(false);
+                  setImageLoaded(false);
+                }}
+                className={`w-full px-4 py-2.5 sm:py-3 rounded-xl border bg-stone-50 dark:bg-slate-800/80 text-stone-900 dark:text-white text-sm focus:outline-none focus:ring-2 ${
+                  imageError
+                    ? "border-rose-400 focus:ring-rose-500"
+                    : "border-stone-200 dark:border-slate-700 focus:ring-orange-500"
+                }`}
               />
               <p className="text-[11px] text-stone-500 dark:text-stone-400 mt-1">
-                Provide a direct image URL (e.g., Unsplash or any public link).
+                Provide a direct image URL (e.g. from Unsplash or image host).
               </p>
 
-              {/* Live Preview */}
-              {image && (
-                <div className="mt-3 flex items-center gap-3 p-3 rounded-xl bg-stone-50 dark:bg-slate-800 border border-stone-200 dark:border-slate-700">
-                  <img
-                    src={image}
-                    alt="Cover preview"
-                    className="w-12 h-16 object-cover rounded-md shadow-sm"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src =
-                        "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=800&q=80";
-                    }}
-                  />
-                  <div>
-                    <p className="text-xs font-semibold text-stone-800 dark:text-stone-200">
-                      Cover Preview
-                    </p>
-                    <p className="text-[11px] text-stone-500 dark:text-stone-400">
-                      Live preview from the URL above.
-                    </p>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => setImage("")}
-                    className="ml-auto text-xs text-rose-500 hover:underline px-2 py-1"
-                  >
-                    Clear
-                  </button>
+              {/* Live Preview with Real Validation */}
+              {image.trim() && (
+                <div className="mt-3">
+                  {imageError ? (
+                    <div className="flex items-center gap-3 p-3 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/60 text-rose-700 dark:text-rose-300">
+                      <AlertCircle className="w-5 h-5 shrink-0 text-rose-500" />
+                      <div className="flex-1">
+                        <p className="text-xs font-semibold">Invalid Image Link</p>
+                        <p className="text-[11px] text-rose-600/90 dark:text-rose-400">
+                          This URL does not point to an accessible image file.
+                        </p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setImage("");
+                          setImageError(false);
+                          setImageLoaded(false);
+                        }}
+                        className="text-xs text-rose-600 dark:text-rose-400 hover:underline px-2 py-1"
+                      >
+                        Clear
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-3 p-3 rounded-xl bg-stone-50 dark:bg-slate-800 border border-stone-200 dark:border-slate-700">
+                      <div className="relative w-12 h-16 shrink-0 rounded-md overflow-hidden bg-stone-200 dark:bg-slate-700 shadow-sm flex items-center justify-center">
+                        <img
+                          src={image}
+                          alt="Cover preview"
+                          className="w-full h-full object-cover"
+                          onLoad={() => {
+                            setImageLoaded(true);
+                            setImageError(false);
+                          }}
+                          onError={() => {
+                            setImageError(true);
+                            setImageLoaded(false);
+                          }}
+                        />
+                      </div>
+                      <div className="flex-1">
+                        {imageLoaded ? (
+                          <div className="flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                            <CheckCircle2 className="w-4 h-4" />
+                            <span>Image Loaded Successfully</span>
+                          </div>
+                        ) : (
+                          <p className="text-xs font-semibold text-stone-700 dark:text-stone-300">
+                            Loading image preview...
+                          </p>
+                        )}
+                        <p className="text-[11px] text-stone-500 dark:text-stone-400 mt-0.5">
+                          Live preview from your URL.
+                        </p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setImage("");
+                          setImageError(false);
+                          setImageLoaded(false);
+                        }}
+                        className="text-xs text-rose-500 hover:underline px-2 py-1"
+                      >
+                        Clear
+                      </button>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
