@@ -17,7 +17,7 @@ interface BorrowModalProps {
   onSuccess: () => void;
 }
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://booknook-server-a8.vercel.app";
 
 export default function BorrowModal({ isOpen, book, onClose, onSuccess }: BorrowModalProps) {
   const { user, token } = useAuth();

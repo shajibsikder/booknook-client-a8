@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import BookCard, { Book } from "@/components/BookCard";
 import { BookOpen, Search } from "lucide-react";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://booknook-server-a8.vercel.app";
 
 const categories = ["All", "Fiction", "Science", "History", "Kids", "Others"];
 
