@@ -101,11 +101,17 @@ export default function BorrowModal({ isOpen, book, onClose, onSuccess }: Borrow
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           {/* Book Summary Card */}
           <div className="flex items-center gap-4 p-3.5 rounded-2xl bg-stone-50 dark:bg-slate-800/60 border border-stone-100 dark:border-slate-800">
-            <img
-              src={book.image}
-              alt={book.title}
-              className="w-14 h-20 object-cover rounded-lg shadow-sm"
-            />
+            <div className="relative w-14 h-20 shrink-0 rounded-lg overflow-hidden bg-stone-200 dark:bg-slate-700 shadow-sm flex items-center justify-center">
+              <img
+                src={book.image || "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=800&q=80"}
+                alt={book.title}
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src =
+                    "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=800&q=80";
+                }}
+              />
+            </div>
             <div>
               <h4 className="font-semibold text-stone-900 dark:text-white line-clamp-1">{book.title}</h4>
               <p className="text-xs text-stone-500 dark:text-stone-400">by {book.author}</p>
