@@ -91,7 +91,7 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="space-y-16 sm:space-y-24 pb-20">
+    <div className="space-y-16 sm:space-y-20">
       {/* Hero banner slider */}
       <section className="w-full">
         <Swiper
@@ -201,95 +201,95 @@ export default function HomePage() {
       </section>
 
       {/* Top categories */}
-      <section className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-        <div className="mb-12 text-center">
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-stone-900 dark:text-white">
-            Top Categories
-          </h2>
-          <p className="mt-2 text-stone-500 dark:text-stone-400 text-sm sm:text-base">
-            Pick a shelf and start reading.
-          </p>
-        </div>
-
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {categories.map((cat) => (
-            <Link
-              key={cat.name}
-              href={`/books?category=${encodeURIComponent(cat.name)}`}
-              className="group flex h-full flex-col items-center rounded-2xl border border-stone-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 text-center transition hover:-translate-y-1 hover:border-orange-500 dark:hover:border-orange-500 shadow-sm hover:shadow-md"
-            >
-              <cat.icon className="w-9 h-9 text-orange-600 dark:text-orange-400 group-hover:scale-110 transition-transform" />
-              <h3 className="mt-4 font-serif text-xl font-bold text-stone-900 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">
-                {cat.name}
-              </h3>
-              <p className="mt-1.5 text-sm text-stone-500 dark:text-stone-400">
-                {cat.desc}
-              </p>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* How borrowing works */}
       <section className="bg-stone-100/70 dark:bg-slate-900/60 py-16 sm:py-20 border-y border-stone-200/80 dark:border-slate-800">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <div className="mb-12 text-center">
             <h2 className="font-serif text-3xl sm:text-4xl font-bold text-stone-900 dark:text-white">
-              How Borrowing Works
+              Top Categories
             </h2>
             <p className="mt-2 text-stone-500 dark:text-stone-400 text-sm sm:text-base">
-              Three steps. No library card needed.
+              Pick a shelf and start reading.
             </p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-3">
-            {/* Step 1 */}
-            <div className="rounded-2xl border border-stone-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 text-center shadow-sm hover:shadow-md transition-shadow">
-              <span className="mx-auto mb-5 grid size-14 place-items-center rounded-full bg-orange-600 text-white shadow-md shadow-orange-600/20">
-                <Search className="w-6 h-6" />
-              </span>
-              <p className="text-xs font-bold uppercase tracking-wider text-orange-600 dark:text-orange-400">
-                Step 1
-              </p>
-              <h3 className="mt-1.5 font-serif text-xl font-bold text-stone-900 dark:text-white">
-                Find a book
-              </h3>
-              <p className="mt-2 text-stone-500 dark:text-stone-400 text-sm leading-relaxed">
-                Browse the shelf and open any book you like.
-              </p>
-            </div>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {categories.map((cat) => (
+              <Link
+                key={cat.name}
+                href={`/books?category=${encodeURIComponent(cat.name)}`}
+                className="group flex h-full flex-col items-center rounded-2xl border border-stone-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 text-center transition hover:-translate-y-1 hover:border-orange-500 dark:hover:border-orange-500 shadow-sm hover:shadow-md"
+              >
+                <cat.icon className="w-9 h-9 text-orange-600 dark:text-orange-400 group-hover:scale-110 transition-transform" />
+                <h3 className="mt-4 font-serif text-xl font-bold text-stone-900 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">
+                  {cat.name}
+                </h3>
+                <p className="mt-1.5 text-sm text-stone-500 dark:text-stone-400">
+                  {cat.desc}
+                </p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            {/* Step 2 */}
-            <div className="rounded-2xl border border-stone-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 text-center shadow-sm hover:shadow-md transition-shadow">
-              <span className="mx-auto mb-5 grid size-14 place-items-center rounded-full bg-orange-600 text-white shadow-md shadow-orange-600/20">
-                <BookOpenCheck className="w-6 h-6" />
-              </span>
-              <p className="text-xs font-bold uppercase tracking-wider text-orange-600 dark:text-orange-400">
-                Step 2
-              </p>
-              <h3 className="mt-1.5 font-serif text-xl font-bold text-stone-900 dark:text-white">
-                Borrow it
-              </h3>
-              <p className="mt-2 text-stone-500 dark:text-stone-400 text-sm leading-relaxed">
-                Confirm the borrow. The book is yours for 7 days.
-              </p>
-            </div>
+      {/* How borrowing works */}
+      <section className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+        <div className="mb-12 text-center">
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-stone-900 dark:text-white">
+            How Borrowing Works
+          </h2>
+          <p className="mt-2 text-stone-500 dark:text-stone-400 text-sm sm:text-base">
+            Three steps. No library card needed.
+          </p>
+        </div>
 
-            {/* Step 3 */}
-            <div className="rounded-2xl border border-stone-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 text-center shadow-sm hover:shadow-md transition-shadow">
-              <span className="mx-auto mb-5 grid size-14 place-items-center rounded-full bg-orange-600 text-white shadow-md shadow-orange-600/20">
-                <Undo2 className="w-6 h-6" />
-              </span>
-              <p className="text-xs font-bold uppercase tracking-wider text-orange-600 dark:text-orange-400">
-                Step 3
-              </p>
-              <h3 className="mt-1.5 font-serif text-xl font-bold text-stone-900 dark:text-white">
-                Return it
-              </h3>
-              <p className="mt-2 text-stone-500 dark:text-stone-400 text-sm leading-relaxed">
-                Done reading? Return it from My Borrows in one click.
-              </p>
-            </div>
+        <div className="grid gap-6 md:grid-cols-3">
+          {/* Step 1 */}
+          <div className="rounded-2xl border border-stone-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 text-center shadow-sm hover:shadow-md transition-shadow">
+            <span className="mx-auto mb-5 grid size-14 place-items-center rounded-full bg-orange-600 text-white shadow-md shadow-orange-600/20">
+              <Search className="w-6 h-6" />
+            </span>
+            <p className="text-xs font-bold uppercase tracking-wider text-orange-600 dark:text-orange-400">
+              Step 1
+            </p>
+            <h3 className="mt-1.5 font-serif text-xl font-bold text-stone-900 dark:text-white">
+              Find a book
+            </h3>
+            <p className="mt-2 text-stone-500 dark:text-stone-400 text-sm leading-relaxed">
+              Browse the shelf and open any book you like.
+            </p>
+          </div>
+
+          {/* Step 2 */}
+          <div className="rounded-2xl border border-stone-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 text-center shadow-sm hover:shadow-md transition-shadow">
+            <span className="mx-auto mb-5 grid size-14 place-items-center rounded-full bg-orange-600 text-white shadow-md shadow-orange-600/20">
+              <BookOpenCheck className="w-6 h-6" />
+            </span>
+            <p className="text-xs font-bold uppercase tracking-wider text-orange-600 dark:text-orange-400">
+              Step 2
+            </p>
+            <h3 className="mt-1.5 font-serif text-xl font-bold text-stone-900 dark:text-white">
+              Borrow it
+            </h3>
+            <p className="mt-2 text-stone-500 dark:text-stone-400 text-sm leading-relaxed">
+              Confirm the borrow. The book is yours for 7 days.
+            </p>
+          </div>
+
+          {/* Step 3 */}
+          <div className="rounded-2xl border border-stone-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 text-center shadow-sm hover:shadow-md transition-shadow">
+            <span className="mx-auto mb-5 grid size-14 place-items-center rounded-full bg-orange-600 text-white shadow-md shadow-orange-600/20">
+              <Undo2 className="w-6 h-6" />
+            </span>
+            <p className="text-xs font-bold uppercase tracking-wider text-orange-600 dark:text-orange-400">
+              Step 3
+            </p>
+            <h3 className="mt-1.5 font-serif text-xl font-bold text-stone-900 dark:text-white">
+              Return it
+            </h3>
+            <p className="mt-2 text-stone-500 dark:text-stone-400 text-sm leading-relaxed">
+              Done reading? Return it from My Borrows in one click.
+            </p>
           </div>
         </div>
       </section>
