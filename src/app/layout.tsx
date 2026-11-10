@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { AuthProvider } from "@/context/AuthContext";
@@ -40,6 +41,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="antialiased selection:bg-orange-500 selection:text-white flex flex-col min-h-screen bg-stone-50/50 dark:bg-stone-950 text-stone-900 dark:text-stone-100">
+        <Script src="https://accounts.google.com/gsi/client" strategy="afterInteractive" />
         <ThemeProvider>
           <AuthProvider>
             <Toaster

@@ -16,8 +16,8 @@ export const auth = betterAuth({
   },
   socialProviders: {
     google: {
-      clientId: process.env.GOOGLE_CLIENT_ID || "demo-google-client-id",
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "demo-google-client-secret",
+      clientId: process.env.GOOGLE_CLIENT_ID || "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
     },
   },
   secret: process.env.BETTER_AUTH_SECRET || "booknook-better-auth-secret-key-super-secure-32",

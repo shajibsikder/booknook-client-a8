@@ -23,6 +23,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://booknook-server-a8.vercel.app";
+const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "";
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
@@ -37,9 +38,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       if (storedUser) {
         const parsed = JSON.parse(storedUser);
-        if (parsed.email === "google.reader@gmail.com" || parsed.email === "google@gmail.com") {
-          parsed.email = "google@gmail.com";
-          parsed.photoURL = `https://ui-avatars.com/api/?name=${encodeURIComponent(parsed.name || "Reader")}&background=ea580c&color=fff&size=256&bold=true`;
+        if (parsed.photoURL && parsed.photoURL.includes("/avatar.jpg")) {
+          parsed.photoURL = `https://ui-avatars.com/api/?name=${encodeURIComponent(
+            parsed.name || "Reader"
+          )}&background=ea580c&color=fff&size=256&bold=true`;
           localStorage.setItem("booknook_user", JSON.stringify(parsed));
         }
         setUser(parsed);
@@ -84,10 +86,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           password: pass,
         });
       } catch (authErr) {
-        // Continue with local sync
+        // Fallback for local persistence
       }
 
-      // Find user from registered users storage or default test credentials
       const registeredUsers = JSON.parse(localStorage.getItem("booknook_registered_users") || "[]");
       let matchedUser = registeredUsers.find((u: any) => u.email.toLowerCase() === email.toLowerCase());
 
@@ -96,14 +97,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           matchedUser = {
             name: "Admin",
             email: "admin@gmail.com",
-            photoURL: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=400&q=80",
+            photoURL: `https://ui-avatars.com/api/?name=Admin&background=ea580c&color=fff&size=256&bold=true`,
             password: pass,
           };
         } else if (email.toLowerCase() === "reader@booknook.com" && pass.length >= 6) {
           matchedUser = {
             name: "Dev Reader",
             email: "reader@booknook.com",
-            photoURL: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+            photoURL: `https://ui-avatars.com/api/?name=Dev+Reader&background=ea580c&color=fff&size=256&bold=true`,
             password: pass,
           };
         } else {
@@ -118,7 +119,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const sessionUser: User = {
         name: matchedUser.name,
         email: matchedUser.email,
-        photoURL: matchedUser.photoURL || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+        photoURL:
+          matchedUser.photoURL ||
+          `https://ui-avatars.com/api/?name=${encodeURIComponent(
+            matchedUser.name || "Reader"
+          )}&background=ea580c&color=fff&size=256&bold=true`,
       };
 
       setUser(sessionUser);
@@ -134,16 +139,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const register = async (name: string, email: string, photoURL: string, pass: string): Promise<boolean> => {
     try {
+      const defaultInitialAvatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(
+        name || "Reader"
+      )}&background=ea580c&color=fff&size=256&bold=true`;
+
       // BetterAuth registration integration
       try {
         await signUp.email({
           email,
           password: pass,
           name,
-          image: photoURL || "/avatar.jpg",
+          image: photoURL || defaultInitialAvatar,
         });
       } catch (authErr) {
-        // Continue with local sync
+        // Fallback for local persistence
       }
 
       const registeredUsers = JSON.parse(localStorage.getItem("booknook_registered_users") || "[]");
@@ -157,7 +166,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const newUser = {
         name,
         email,
-        photoURL: photoURL || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+        photoURL: photoURL.trim() || defaultInitialAvatar,
         password: pass,
       };
 
@@ -172,33 +181,68 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const googleLogin = async (): Promise<boolean> => {
-    try {
-      // BetterAuth social login integration
+  const googleLogin = (): Promise<boolean> => {
+    return new Promise<boolean>((resolve) => {
       try {
-        await signIn.social({
-          provider: "google",
-          callbackURL: window.location.origin,
-        });
-      } catch (authErr) {
-        // Fallback for demo flow
+        if (typeof window !== "undefined" && (window as any).google?.accounts?.oauth2) {
+          const client = (window as any).google.accounts.oauth2.initTokenClient({
+            client_id: GOOGLE_CLIENT_ID,
+            scope: "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
+            callback: async (tokenResponse: any) => {
+              if (tokenResponse?.error) {
+                console.warn("Google OAuth response error:", tokenResponse);
+                toast.error("Google sign in was cancelled or failed");
+                resolve(false);
+                return;
+              }
+              if (tokenResponse?.access_token) {
+                try {
+                  const userInfoRes = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+                    headers: { Authorization: `Bearer ${tokenResponse.access_token}` },
+                  });
+                  const profile = await userInfoRes.json();
+                  const googleUser: User = {
+                    name: profile.name || "Google Reader",
+                    email: profile.email || "google@gmail.com",
+                    photoURL:
+                      profile.picture ||
+                      `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                        profile.name || "Reader"
+                      )}&background=ea580c&color=fff&size=256&bold=true`,
+                  };
+
+                  setUser(googleUser);
+                  localStorage.setItem("booknook_user", JSON.stringify(googleUser));
+                  await requestJWT(googleUser.email, googleUser.name);
+                  toast.success(`Signed in as ${googleUser.name}!`);
+                  resolve(true);
+                  return;
+                } catch (fetchErr) {
+                  console.error("Failed to fetch user profile", fetchErr);
+                }
+              }
+              resolve(false);
+            },
+          });
+          client.requestAccessToken();
+        } else {
+          // BetterAuth fallback
+          try {
+            signIn.social({
+              provider: "google",
+              callbackURL: window.location.origin,
+            });
+          } catch (e) {
+            // ignore
+          }
+          resolve(true);
+        }
+      } catch (err: any) {
+        console.error("Google auth failure:", err);
+        toast.error("Google authentication failed");
+        resolve(false);
       }
-
-      const googleUser: User = {
-        name: "Google Reader",
-        email: "google@gmail.com",
-        photoURL: `https://ui-avatars.com/api/?name=${encodeURIComponent("Google Reader")}&background=ea580c&color=fff&size=256&bold=true`,
-      };
-
-      setUser(googleUser);
-      localStorage.setItem("booknook_user", JSON.stringify(googleUser));
-      await requestJWT(googleUser.email, googleUser.name);
-      toast.success("Signed in with Google successfully!");
-      return true;
-    } catch (error: any) {
-      toast.error("Google sign in failed");
-      return false;
-    }
+    });
   };
 
   const logout = async () => {
