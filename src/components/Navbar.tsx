@@ -171,11 +171,11 @@ export default function Navbar() {
                     aria-label="User Profile menu"
                   >
                     <img
-                      src={user.photoURL || "/avatar.jpg"}
+                      src={user.photoURL && !user.photoURL.includes("/avatar.jpg") ? user.photoURL : `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name || "Reader")}&background=ea580c&color=fff&size=128&bold=true`}
                       alt={user.name}
                       className="w-8 h-8 rounded-full object-cover"
                       onError={(e) => {
-                        (e.target as HTMLImageElement).src = "/avatar.jpg";
+                        (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name || "Reader")}&background=ea580c&color=fff&size=128&bold=true`;
                       }}
                     />
                   </button>
@@ -287,11 +287,11 @@ export default function Navbar() {
             <div className="p-3 mx-3 my-3 rounded-2xl bg-stone-50 dark:bg-slate-800/60 border border-stone-200/80 dark:border-slate-700/80 shrink-0">
               <div className="flex items-center gap-3">
                 <img
-                  src={user.photoURL || "/avatar.jpg"}
+                  src={user.photoURL && !user.photoURL.includes("/avatar.jpg") ? user.photoURL : `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name || "Reader")}&background=ea580c&color=fff&size=128&bold=true`}
                   alt={user.name}
                   className="w-10 h-10 rounded-xl object-cover ring-2 ring-orange-500/30 shrink-0"
                   onError={(e) => {
-                    (e.target as HTMLImageElement).src = "/avatar.jpg";
+                    (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name || "Reader")}&background=ea580c&color=fff&size=128&bold=true`;
                   }}
                 />
                 <div className="min-w-0 flex-1">

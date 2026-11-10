@@ -39,7 +39,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const parsed = JSON.parse(storedUser);
         if (parsed.email === "google.reader@gmail.com" || parsed.email === "google@gmail.com") {
           parsed.email = "google@gmail.com";
-          parsed.photoURL = "/avatar.jpg";
+          parsed.photoURL = `https://ui-avatars.com/api/?name=${encodeURIComponent(parsed.name || "Reader")}&background=ea580c&color=fff&size=256&bold=true`;
           localStorage.setItem("booknook_user", JSON.stringify(parsed));
         }
         setUser(parsed);
@@ -187,7 +187,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const googleUser: User = {
         name: "Google Reader",
         email: "google@gmail.com",
-        photoURL: "/avatar.jpg",
+        photoURL: `https://ui-avatars.com/api/?name=${encodeURIComponent("Google Reader")}&background=ea580c&color=fff&size=256&bold=true`,
       };
 
       setUser(googleUser);

@@ -72,11 +72,11 @@ export default function ProfilePage() {
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 -mt-14 sm:-mt-16 mb-5">
               <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl sm:rounded-3xl overflow-hidden ring-4 ring-white dark:ring-slate-900 shadow-2xl bg-stone-100 dark:bg-slate-800 shrink-0">
                 <img
-                  src={user?.photoURL || "/avatar.jpg"}
+                  src={user?.photoURL && !user.photoURL.includes("/avatar.jpg") ? user.photoURL : `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name || "Reader")}&background=ea580c&color=fff&size=256&bold=true`}
                   alt={user?.name || "User Avatar"}
                   className="w-full h-full object-cover"
                   onError={(e) => {
-                    (e.target as HTMLImageElement).src = "/avatar.jpg";
+                    (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name || "Reader")}&background=ea580c&color=fff&size=256&bold=true`;
                   }}
                 />
               </div>
