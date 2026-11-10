@@ -40,11 +40,8 @@ function LoginForm() {
     }
   };
 
-  const handleGoogleSignIn = async () => {
-    const success = await googleLogin();
-    if (success) {
-      router.push(redirectUrl);
-    }
+  const handleGoogleSignIn = () => {
+    googleLogin(redirectUrl);
   };
 
   return (

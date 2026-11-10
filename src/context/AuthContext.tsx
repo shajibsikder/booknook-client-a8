@@ -15,7 +15,7 @@ interface AuthContextType {
   loading: boolean;
   login: (email: string, pass: string) => Promise<boolean>;
   register: (name: string, email: string, photoURL: string, pass: string) => Promise<boolean>;
-  googleLogin: () => Promise<boolean>;
+  googleLogin: (redirectTo?: string) => Promise<boolean>;
   logout: () => Promise<void>;
   token: string | null;
 }
@@ -30,9 +30,36 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
-  // Restore user session on mount
+  // Restore user session on mount or from Google OAuth redirect
   useEffect(() => {
     try {
+      if (typeof window !== "undefined") {
+        const urlParams = new URLSearchParams(window.location.search);
+        const authSuccess = urlParams.get("auth_success");
+        const userParam = urlParams.get("user");
+
+        if (authSuccess === "true" && userParam) {
+          try {
+            const googleUser: User = JSON.parse(decodeURIComponent(userParam));
+            setUser(googleUser);
+            localStorage.setItem("booknook_user", JSON.stringify(googleUser));
+            requestJWT(googleUser.email, googleUser.name);
+            toast.success(`Welcome back, ${googleUser.name}!`);
+
+            urlParams.delete("auth_success");
+            urlParams.delete("user");
+            const newQuery = urlParams.toString();
+            const cleanUrl =
+              window.location.pathname + (newQuery ? `?${newQuery}` : "");
+            window.history.replaceState({}, document.title, cleanUrl);
+            setLoading(false);
+            return;
+          } catch (e) {
+            console.error("Failed to parse google user from redirect", e);
+          }
+        }
+      }
+
       const storedUser = localStorage.getItem("booknook_user");
       const storedToken = localStorage.getItem("booknook_token");
 
@@ -181,68 +208,34 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const googleLogin = (): Promise<boolean> => {
-    return new Promise<boolean>((resolve) => {
-      try {
-        if (typeof window !== "undefined" && (window as any).google?.accounts?.oauth2) {
-          const client = (window as any).google.accounts.oauth2.initTokenClient({
-            client_id: GOOGLE_CLIENT_ID,
-            scope: "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
-            callback: async (tokenResponse: any) => {
-              if (tokenResponse?.error) {
-                console.warn("Google OAuth response error:", tokenResponse);
-                toast.error("Google sign in was cancelled or failed");
-                resolve(false);
-                return;
-              }
-              if (tokenResponse?.access_token) {
-                try {
-                  const userInfoRes = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
-                    headers: { Authorization: `Bearer ${tokenResponse.access_token}` },
-                  });
-                  const profile = await userInfoRes.json();
-                  const googleUser: User = {
-                    name: profile.name || "Google Reader",
-                    email: profile.email || "google@gmail.com",
-                    photoURL:
-                      profile.picture ||
-                      `https://ui-avatars.com/api/?name=${encodeURIComponent(
-                        profile.name || "Reader"
-                      )}&background=ea580c&color=fff&size=256&bold=true`,
-                  };
+  const googleLogin = async (redirectTo?: string): Promise<boolean> => {
+    try {
+      const origin =
+        typeof window !== "undefined" && window.location.origin
+          ? window.location.origin
+          : "http://localhost:3000";
+      const redirectUri = `${origin}/api/auth/callback/google`;
+      const clientId =
+        process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ||
+        GOOGLE_CLIENT_ID ||
+        "1056225569189-7r2ig482j4ms8sjmvp5vgkaphscct2cq.apps.googleusercontent.com";
+      const state = redirectTo ? encodeURIComponent(redirectTo) : "";
 
-                  setUser(googleUser);
-                  localStorage.setItem("booknook_user", JSON.stringify(googleUser));
-                  await requestJWT(googleUser.email, googleUser.name);
-                  toast.success(`Signed in as ${googleUser.name}!`);
-                  resolve(true);
-                  return;
-                } catch (fetchErr) {
-                  console.error("Failed to fetch user profile", fetchErr);
-                }
-              }
-              resolve(false);
-            },
-          });
-          client.requestAccessToken();
-        } else {
-          // BetterAuth fallback
-          try {
-            signIn.social({
-              provider: "google",
-              callbackURL: window.location.origin,
-            });
-          } catch (e) {
-            // ignore
-          }
-          resolve(true);
-        }
-      } catch (err: any) {
-        console.error("Google auth failure:", err);
-        toast.error("Google authentication failed");
-        resolve(false);
+      const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(
+        redirectUri
+      )}&response_type=code&scope=openid%20profile%20email&prompt=select_account${
+        state ? `&state=${state}` : ""
+      }`;
+
+      if (typeof window !== "undefined") {
+        window.location.href = authUrl;
       }
-    });
+      return true;
+    } catch (err: any) {
+      console.error("Google auth failure:", err);
+      toast.error("Google authentication failed");
+      return false;
+    }
   };
 
   const logout = async () => {

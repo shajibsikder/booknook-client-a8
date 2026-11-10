@@ -56,11 +56,8 @@ export default function RegisterPage() {
     }
   };
 
-  const handleGoogleSignIn = async () => {
-    const success = await googleLogin();
-    if (success) {
-      router.push("/");
-    }
+  const handleGoogleSignIn = () => {
+    googleLogin("/");
   };
 
   return (
