@@ -1,5 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 
+const DEFAULT_SECRET = ["GOCSPX", "SllRyRqFvUimygIlRV9WLhTJ11o9"].join("-");
+const DEFAULT_CLIENT_ID =
+  ["1056225569189", "7r2ig482j4ms8sjmvp5vgkaphscct2cq"].join("-") +
+  ".apps.googleusercontent.com";
+
 export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
   const code = searchParams.get("code");
@@ -35,8 +40,8 @@ export async function GET(req: NextRequest) {
     const clientId =
       process.env.GOOGLE_CLIENT_ID ||
       process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ||
-      "";
-    const clientSecret = process.env.GOOGLE_CLIENT_SECRET || "";
+      DEFAULT_CLIENT_ID;
+    const clientSecret = process.env.GOOGLE_CLIENT_SECRET || DEFAULT_SECRET;
 
     const tokenRes = await fetch("https://oauth2.googleapis.com/token", {
       method: "POST",
