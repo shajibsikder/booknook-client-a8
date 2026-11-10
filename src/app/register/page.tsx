@@ -16,6 +16,7 @@ export default function RegisterPage() {
   const [photoURL, setPhotoURL] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [role, setRole] = useState<"Reader" | "Librarian">("Reader");
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
@@ -47,7 +48,8 @@ export default function RegisterPage() {
       name,
       email,
       photoURL.trim() || initialAvatar,
-      password
+      password,
+      role
     );
     setSubmitting(false);
 
@@ -162,6 +164,37 @@ export default function RegisterPage() {
               onChange={(e) => setConfirmPassword(e.target.value)}
               className="w-full px-4 py-2.5 rounded-xl border border-stone-200 dark:border-slate-700 bg-stone-50 dark:bg-slate-800 text-stone-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
             />
+          </div>
+
+          {/* Select Your Role */}
+          <div>
+            <label className="block text-xs font-semibold uppercase tracking-wider text-stone-600 dark:text-stone-300 mb-2">
+              Select Your Role
+            </label>
+            <div className="flex items-center gap-6 pt-0.5">
+              <label className="flex items-center gap-2 cursor-pointer text-sm font-medium text-stone-700 dark:text-stone-200">
+                <input
+                  type="radio"
+                  name="role"
+                  value="Reader"
+                  checked={role === "Reader"}
+                  onChange={() => setRole("Reader")}
+                  className="w-4 h-4 text-orange-600 focus:ring-orange-500 border-stone-300 cursor-pointer"
+                />
+                <span>Reader</span>
+              </label>
+              <label className="flex items-center gap-2 cursor-pointer text-sm font-medium text-stone-700 dark:text-stone-200">
+                <input
+                  type="radio"
+                  name="role"
+                  value="Librarian"
+                  checked={role === "Librarian"}
+                  onChange={() => setRole("Librarian")}
+                  className="w-4 h-4 text-orange-600 focus:ring-orange-500 border-stone-300 cursor-pointer"
+                />
+                <span>Librarian</span>
+              </label>
+            </div>
           </div>
 
           <button

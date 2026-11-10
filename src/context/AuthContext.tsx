@@ -8,13 +8,14 @@ export interface User {
   name: string;
   email: string;
   photoURL: string;
+  role?: string;
 }
 
 interface AuthContextType {
   user: User | null;
   loading: boolean;
   login: (email: string, pass: string) => Promise<boolean>;
-  register: (name: string, email: string, photoURL: string, pass: string) => Promise<boolean>;
+  register: (name: string, email: string, photoURL: string, pass: string, role?: string) => Promise<boolean>;
   googleLogin: (redirectTo?: string) => Promise<boolean>;
   logout: () => Promise<void>;
   token: string | null;
@@ -41,6 +42,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         if (authSuccess === "true" && userParam) {
           try {
             const googleUser: User = JSON.parse(decodeURIComponent(userParam));
+            if (!googleUser.role) googleUser.role = "Reader";
             setUser(googleUser);
             localStorage.setItem("booknook_user", JSON.stringify(googleUser));
             requestJWT(googleUser.email, googleUser.name);
@@ -65,6 +67,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       if (storedUser) {
         const parsed = JSON.parse(storedUser);
+        if (!parsed.role) parsed.role = "Reader";
         if (parsed.photoURL && parsed.photoURL.includes("/avatar.jpg")) {
           parsed.photoURL = `https://ui-avatars.com/api/?name=${encodeURIComponent(
             parsed.name || "Reader"
@@ -151,6 +154,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           `https://ui-avatars.com/api/?name=${encodeURIComponent(
             matchedUser.name || "Reader"
           )}&background=ea580c&color=fff&size=256&bold=true`,
+        role: matchedUser.role || "Reader",
       };
 
       setUser(sessionUser);
@@ -164,7 +168,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const register = async (name: string, email: string, photoURL: string, pass: string): Promise<boolean> => {
+  const register = async (
+    name: string,
+    email: string,
+    photoURL: string,
+    pass: string,
+    role: string = "Reader"
+  ): Promise<boolean> => {
     try {
       const defaultInitialAvatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(
         name || "Reader"
@@ -195,6 +205,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         email,
         photoURL: photoURL.trim() || defaultInitialAvatar,
         password: pass,
+        role: role || "Reader",
       };
 
       registeredUsers.push(newUser);

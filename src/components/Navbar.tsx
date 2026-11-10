@@ -194,9 +194,14 @@ export default function Navbar() {
                         <p className="text-sm font-semibold text-stone-900 dark:text-white truncate">
                           {user.name}
                         </p>
-                        <p className="text-xs text-stone-500 dark:text-stone-400 truncate">
-                          {user.email}
-                        </p>
+                        <div className="flex items-center justify-between gap-2 mt-0.5">
+                          <p className="text-xs text-stone-500 dark:text-stone-400 truncate">
+                            {user.email}
+                          </p>
+                          <span className="text-[10px] uppercase font-bold px-1.5 py-0.5 rounded bg-orange-100 dark:bg-orange-950/60 text-orange-700 dark:text-orange-400 shrink-0">
+                            {user.role || "Reader"}
+                          </span>
+                        </div>
                       </div>
 
                       <div className="py-1">

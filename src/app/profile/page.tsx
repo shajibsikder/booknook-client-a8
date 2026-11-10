@@ -8,12 +8,10 @@ import {
   Mail,
   BookOpen,
   BookMarked,
-  Calendar,
   ArrowRight,
   LogOut,
-  Sparkles,
+  ShieldCheck,
   Award,
-  CheckCircle2,
   Clock,
 } from "lucide-react";
 
@@ -58,15 +56,7 @@ export default function ProfilePage() {
     <ProtectedRoute>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-8">
         <div className="bg-white dark:bg-slate-900 rounded-3xl border border-stone-200/80 dark:border-slate-800 shadow-xl overflow-hidden">
-          <div className="h-36 sm:h-44 bg-gradient-to-r from-amber-700 via-orange-600 to-amber-600 relative overflow-hidden">
-            <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]" />
-            <div className="absolute top-4 right-4 sm:top-5 sm:right-6">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/25 backdrop-blur-md text-white text-xs font-medium border border-white/20 shadow-sm">
-                <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-                Reader Profile
-              </span>
-            </div>
-          </div>
+          <div className="h-36 sm:h-44 bg-gradient-to-r from-amber-700 via-orange-600 to-amber-600 relative overflow-hidden" />
 
           <div className="px-6 sm:px-10 pb-8 sm:pb-10">
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 -mt-14 sm:-mt-16 mb-5">
@@ -92,7 +82,7 @@ export default function ProfilePage() {
               </div>
             </div>
 
-            <div className="space-y-2 pb-6 border-b border-stone-200/80 dark:border-slate-800">
+            <div className="space-y-2">
               <div className="flex flex-wrap items-center gap-3">
                 <h1 className="font-serif text-2xl sm:text-3xl font-extrabold text-stone-900 dark:text-white">
                   {user?.name || "Avid Reader"}
@@ -106,32 +96,10 @@ export default function ProfilePage() {
                 </p>
                 <span className="hidden sm:inline text-stone-300 dark:text-stone-700">•</span>
                 <p className="flex items-center gap-1.5">
-                  <Calendar className="w-4 h-4 text-amber-600 shrink-0" />
-                  <span>Active Reader Member</span>
-                </p>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6">
-              <div className="p-4 rounded-2xl bg-stone-50 dark:bg-slate-800/60 border border-stone-100 dark:border-slate-800">
-                <span className="text-[11px] uppercase font-bold text-stone-400 dark:text-stone-500 tracking-wider">
-                  Membership Tier
-                </span>
-                <p className="text-sm font-bold text-stone-900 dark:text-white mt-1">BookNook Community</p>
-              </div>
-              <div className="p-4 rounded-2xl bg-stone-50 dark:bg-slate-800/60 border border-stone-100 dark:border-slate-800">
-                <span className="text-[11px] uppercase font-bold text-stone-400 dark:text-stone-500 tracking-wider">
-                  Account Role
-                </span>
-                <p className="text-sm font-bold text-stone-900 dark:text-white mt-1">Active Library Patron</p>
-              </div>
-              <div className="p-4 rounded-2xl bg-stone-50 dark:bg-slate-800/60 border border-stone-100 dark:border-slate-800">
-                <span className="text-[11px] uppercase font-bold text-stone-400 dark:text-stone-500 tracking-wider">
-                  Circulation Status
-                </span>
-                <p className="text-sm font-bold text-emerald-600 dark:text-emerald-400 mt-1 flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4" />
-                  Good Standing (Unlimited)
+                  <ShieldCheck className="w-4 h-4 text-orange-600 shrink-0" />
+                  <span className="font-semibold text-stone-700 dark:text-stone-200 capitalize">
+                    Role: {user?.role || "Reader"}
+                  </span>
                 </p>
               </div>
             </div>

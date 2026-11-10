@@ -49,6 +49,7 @@ export async function GET(req: NextRequest) {
         `https://ui-avatars.com/api/?name=${encodeURIComponent(
           profile.name || "Reader"
         )}&background=ea580c&color=fff&size=256&bold=true`,
+      role: "Reader",
     };
 
     const state = searchParams.get("state");
