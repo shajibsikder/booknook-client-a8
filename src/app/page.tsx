@@ -200,6 +200,36 @@ export default function HomePage() {
         )}
       </section>
 
+      {/* Top categories */}
+      <section className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+        <div className="mb-12 text-center">
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-stone-900 dark:text-white">
+            Top Categories
+          </h2>
+          <p className="mt-2 text-stone-500 dark:text-stone-400 text-sm sm:text-base">
+            Pick a shelf and start reading.
+          </p>
+        </div>
+
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {categories.map((cat) => (
+            <Link
+              key={cat.name}
+              href={`/books?category=${encodeURIComponent(cat.name)}`}
+              className="group flex h-full flex-col items-center rounded-2xl border border-stone-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 text-center transition hover:-translate-y-1 hover:border-orange-500 dark:hover:border-orange-500 shadow-sm hover:shadow-md"
+            >
+              <cat.icon className="w-9 h-9 text-orange-600 dark:text-orange-400 group-hover:scale-110 transition-transform" />
+              <h3 className="mt-4 font-serif text-xl font-bold text-stone-900 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">
+                {cat.name}
+              </h3>
+              <p className="mt-1.5 text-sm text-stone-500 dark:text-stone-400">
+                {cat.desc}
+              </p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
       {/* How borrowing works */}
       <section className="bg-stone-100/70 dark:bg-slate-900/60 py-16 sm:py-20 border-y border-stone-200/80 dark:border-slate-800">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
@@ -261,36 +291,6 @@ export default function HomePage() {
               </p>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Top categories */}
-      <section className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-        <div className="mb-12 text-center">
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-stone-900 dark:text-white">
-            Top Categories
-          </h2>
-          <p className="mt-2 text-stone-500 dark:text-stone-400 text-sm sm:text-base">
-            Pick a shelf and start reading.
-          </p>
-        </div>
-
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {categories.map((cat) => (
-            <Link
-              key={cat.name}
-              href={`/books?category=${encodeURIComponent(cat.name)}`}
-              className="group flex h-full flex-col items-center rounded-2xl border border-stone-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 text-center transition hover:-translate-y-1 hover:border-orange-500 dark:hover:border-orange-500 shadow-sm hover:shadow-md"
-            >
-              <cat.icon className="w-9 h-9 text-orange-600 dark:text-orange-400 group-hover:scale-110 transition-transform" />
-              <h3 className="mt-4 font-serif text-xl font-bold text-stone-900 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">
-                {cat.name}
-              </h3>
-              <p className="mt-1.5 text-sm text-stone-500 dark:text-stone-400">
-                {cat.desc}
-              </p>
-            </Link>
-          ))}
         </div>
       </section>
     </div>

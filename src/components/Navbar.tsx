@@ -71,13 +71,17 @@ export default function Navbar() {
               </button>
 
               {/* Brand logo */}
-              <Link href="/" className="flex items-center gap-2.5 group">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-700 via-orange-600 to-amber-500 flex items-center justify-center text-white shadow-md shadow-orange-500/20 group-hover:scale-105 transition-transform">
-                  <BookOpen className="w-5 h-5" />
-                </div>
-                <span className="font-serif text-2xl font-bold tracking-tight text-stone-900 dark:text-white">
-                  Book<span className="text-orange-600 dark:text-orange-400">Nook</span>
-                </span>
+              <Link href="/" className="flex items-center group">
+                <img
+                  src="/logo.png"
+                  alt="BookNook"
+                  className="h-9 sm:h-10 w-auto object-contain dark:hidden group-hover:opacity-90 transition-opacity"
+                />
+                <img
+                  src="/logo-dark.png"
+                  alt="BookNook"
+                  className="h-9 sm:h-10 w-auto object-contain hidden dark:block group-hover:opacity-90 transition-opacity"
+                />
               </Link>
 
               {/* Desktop links */}
@@ -263,14 +267,18 @@ export default function Navbar() {
             <Link
               href="/"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-2.5"
+              className="flex items-center"
             >
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-700 via-orange-600 to-amber-500 flex items-center justify-center text-white shadow-md shadow-orange-500/20">
-                <BookOpen className="w-5 h-5" />
-              </div>
-              <span className="font-serif text-xl font-bold tracking-tight text-stone-900 dark:text-white leading-none">
-                Book<span className="text-orange-600 dark:text-orange-400">Nook</span>
-              </span>
+              <img
+                src="/logo.png"
+                alt="BookNook"
+                className="h-8 w-auto object-contain dark:hidden"
+              />
+              <img
+                src="/logo-dark.png"
+                alt="BookNook"
+                className="h-8 w-auto object-contain hidden dark:block"
+              />
             </Link>
 
             <button

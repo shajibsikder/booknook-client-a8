@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { BookOpen, Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -10,13 +10,17 @@ export default function Footer() {
       <div className="w-full max-w-[1560px] mx-auto grid gap-10 px-4 sm:px-6 lg:px-8 py-12 md:grid-cols-3">
         {/* Brand */}
         <div className="space-y-3">
-          <Link href="/" className="flex items-center gap-2">
-            <span className="grid size-9 place-items-center rounded-xl bg-orange-600 text-white shadow-md shadow-orange-600/20">
-              <BookOpen className="w-5 h-5" />
-            </span>
-            <span className="font-serif text-2xl font-bold tracking-tight text-stone-900 dark:text-white">
-              Book<span className="text-orange-600 dark:text-orange-500">Nook</span>
-            </span>
+          <Link href="/" className="inline-flex items-center">
+            <img
+              src="/logo.png"
+              alt="BookNook"
+              className="h-9 w-auto object-contain dark:hidden"
+            />
+            <img
+              src="/logo-dark.png"
+              alt="BookNook"
+              className="h-9 w-auto object-contain hidden dark:block"
+            />
           </Link>
           <p className="max-w-xs text-sm text-stone-500 dark:text-stone-400 leading-relaxed">
             A small neighbourhood library on the web. Share the books on your shelf and borrow the ones you have been meaning to read.

@@ -4,7 +4,7 @@ import React, { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
-import { BookOpen, Mail, Lock, ArrowRight } from "lucide-react";
+import { Mail, Lock, ArrowRight } from "lucide-react";
 import toast from "react-hot-toast";
 
 function LoginForm() {
@@ -48,13 +48,17 @@ function LoginForm() {
     <div className="min-h-[80vh] flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8 bg-white dark:bg-slate-900 p-8 sm:p-10 rounded-3xl border border-stone-200/80 dark:border-slate-800 shadow-xl">
         <div className="text-center space-y-2">
-          <Link href="/" className="inline-flex items-center gap-2 mb-2">
-            <div className="w-10 h-10 rounded-xl bg-orange-600 flex items-center justify-center text-white shadow-md">
-              <BookOpen className="w-5 h-5" />
-            </div>
-            <span className="font-serif text-2xl font-bold tracking-tight text-stone-900 dark:text-white">
-              Book<span className="text-orange-600">Nook</span>
-            </span>
+          <Link href="/" className="inline-flex items-center justify-center mb-2">
+            <img
+              src="/logo.png"
+              alt="BookNook"
+              className="h-10 w-auto object-contain dark:hidden"
+            />
+            <img
+              src="/logo-dark.png"
+              alt="BookNook"
+              className="h-10 w-auto object-contain hidden dark:block"
+            />
           </Link>
           <h2 className="font-serif text-3xl font-bold text-stone-900 dark:text-white">
             Welcome Back
