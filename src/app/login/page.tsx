@@ -23,7 +23,15 @@ function LoginForm() {
     if (user) {
       router.push(redirectUrl);
     }
-  }, [user, router, redirectUrl]);
+    const errorParam = searchParams.get("error");
+    if (errorParam) {
+      if (errorParam === "token_failed" || errorParam === "invalid_client" || errorParam === "redirect_uri_mismatch") {
+        setFormError("Google authentication could not complete. Please try signing in again.");
+      } else if (errorParam !== "no_code") {
+        setFormError(`Authentication issue: ${errorParam}`);
+      }
+    }
+  }, [user, router, redirectUrl, searchParams]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

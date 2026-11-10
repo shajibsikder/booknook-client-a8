@@ -3,10 +3,32 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
   const code = searchParams.get("code");
-  const origin = req.nextUrl.origin;
+
+  const host =
+    req.headers.get("x-forwarded-host") ||
+    req.headers.get("host") ||
+    req.nextUrl.host;
+  const proto =
+    req.headers.get("x-forwarded-proto") ||
+    (host.includes("localhost") ? "http" : "https");
+  const origin = `${proto}://${host}`;
 
   if (!code) {
     return NextResponse.redirect(`${origin}/login?error=no_code`);
+  }
+
+  const stateRaw = searchParams.get("state");
+  let returnPath = "/";
+  let redirectUri = `${origin}/api/auth/callback/google`;
+
+  if (stateRaw) {
+    try {
+      const decoded = JSON.parse(decodeURIComponent(stateRaw));
+      if (decoded.path) returnPath = decoded.path;
+      if (decoded.redirectUri) redirectUri = decoded.redirectUri;
+    } catch {
+      returnPath = decodeURIComponent(stateRaw);
+    }
   }
 
   try {
@@ -23,7 +45,7 @@ export async function GET(req: NextRequest) {
         code,
         client_id: clientId,
         client_secret: clientSecret,
-        redirect_uri: `${origin}/api/auth/callback/google`,
+        redirect_uri: redirectUri,
         grant_type: "authorization_code",
       }),
     });
@@ -31,7 +53,8 @@ export async function GET(req: NextRequest) {
     const tokenData = await tokenRes.json();
     if (!tokenData.access_token) {
       console.error("Google token exchange error:", tokenData);
-      return NextResponse.redirect(`${origin}/login?error=token_failed`);
+      const reason = tokenData.error || tokenData.error_description || "token_failed";
+      return NextResponse.redirect(`${origin}/login?error=${encodeURIComponent(reason)}`);
     }
 
     const userRes = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
@@ -50,8 +73,6 @@ export async function GET(req: NextRequest) {
       role: "Reader",
     };
 
-    const state = searchParams.get("state");
-    const returnPath = state ? decodeURIComponent(state) : "/";
     const targetUrl = new URL(returnPath.startsWith("/") ? returnPath : `/${returnPath}`, origin);
     targetUrl.searchParams.set("auth_success", "true");
     targetUrl.searchParams.set("user", JSON.stringify(userPayload));

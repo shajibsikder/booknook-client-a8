@@ -222,13 +222,92 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ||
         GOOGLE_CLIENT_ID ||
         "1056225569189-7r2ig482j4ms8sjmvp5vgkaphscct2cq.apps.googleusercontent.com";
-      const state = redirectTo ? encodeURIComponent(redirectTo) : "";
+      const targetPath = redirectTo || "/";
 
+      if (typeof window !== "undefined" && (window as any).google?.accounts?.id) {
+        return new Promise<boolean>((resolve) => {
+          try {
+            (window as any).google.accounts.id.initialize({
+              client_id: clientId,
+              callback: async (response: any) => {
+                try {
+                  if (response?.credential) {
+                    const base64Url = response.credential.split(".")[1];
+                    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+                    const jsonPayload = decodeURIComponent(
+                      atob(base64)
+                        .split("")
+                        .map((c: string) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
+                        .join("")
+                    );
+                    const profile = JSON.parse(jsonPayload);
+
+                    const googleUser: User = {
+                      name: profile.name || "Reader",
+                      email: profile.email || "",
+                      photoURL:
+                        profile.picture ||
+                        `https://ui-avatars.com/api/?name=${encodeURIComponent(
+                          profile.name || "Reader"
+                        )}&background=ea580c&color=fff&size=256&bold=true`,
+                      role: "Reader",
+                    };
+
+                    setUser(googleUser);
+                    localStorage.setItem("booknook_user", JSON.stringify(googleUser));
+                    await requestJWT(googleUser.email, googleUser.name);
+                    toast.success(`Welcome back, ${googleUser.name}!`);
+                    if (typeof window !== "undefined") {
+                      window.location.href = targetPath;
+                    }
+                    resolve(true);
+                    return;
+                  }
+                } catch (e) {
+                  console.error("GSI token decode error:", e);
+                }
+                resolve(false);
+              },
+            });
+
+            (window as any).google.accounts.id.prompt((notification: any) => {
+              if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+                const state = encodeURIComponent(
+                  JSON.stringify({
+                    path: targetPath,
+                    redirectUri,
+                  })
+                );
+                const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(
+                  redirectUri
+                )}&response_type=code&scope=openid%20profile%20email&prompt=select_account&state=${state}`;
+                window.location.href = authUrl;
+              }
+            });
+          } catch {
+            const state = encodeURIComponent(
+              JSON.stringify({
+                path: targetPath,
+                redirectUri,
+              })
+            );
+            const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(
+              redirectUri
+            )}&response_type=code&scope=openid%20profile%20email&prompt=select_account&state=${state}`;
+            window.location.href = authUrl;
+          }
+        });
+      }
+
+      const state = encodeURIComponent(
+        JSON.stringify({
+          path: targetPath,
+          redirectUri,
+        })
+      );
       const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(
         redirectUri
-      )}&response_type=code&scope=openid%20profile%20email&prompt=select_account${
-        state ? `&state=${state}` : ""
-      }`;
+      )}&response_type=code&scope=openid%20profile%20email&prompt=select_account&state=${state}`;
 
       if (typeof window !== "undefined") {
         window.location.href = authUrl;
