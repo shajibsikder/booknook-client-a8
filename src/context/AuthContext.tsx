@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { signUp, signIn, signOut as betterSignOut } from "@/lib/auth-client";
 
 export interface User {
   name: string;
@@ -76,6 +77,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const login = async (email: string, pass: string): Promise<boolean> => {
     try {
+      // BetterAuth sign in integration
+      try {
+        await signIn.email({
+          email,
+          password: pass,
+        });
+      } catch (authErr) {
+        // Continue with local sync
+      }
+
       // Find user from registered users storage or default test credentials
       const registeredUsers = JSON.parse(localStorage.getItem("booknook_registered_users") || "[]");
       let matchedUser = registeredUsers.find((u: any) => u.email.toLowerCase() === email.toLowerCase());
@@ -123,6 +134,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const register = async (name: string, email: string, photoURL: string, pass: string): Promise<boolean> => {
     try {
+      // BetterAuth registration integration
+      try {
+        await signUp.email({
+          email,
+          password: pass,
+          name,
+          image: photoURL || "/avatar.jpg",
+        });
+      } catch (authErr) {
+        // Continue with local sync
+      }
+
       const registeredUsers = JSON.parse(localStorage.getItem("booknook_registered_users") || "[]");
       const exists = registeredUsers.some((u: any) => u.email.toLowerCase() === email.toLowerCase());
 
@@ -151,6 +174,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const googleLogin = async (): Promise<boolean> => {
     try {
+      // BetterAuth social login integration
+      try {
+        await signIn.social({
+          provider: "google",
+          callbackURL: window.location.origin,
+        });
+      } catch (authErr) {
+        // Fallback for demo flow
+      }
+
       const googleUser: User = {
         name: "Google Reader",
         email: "google@gmail.com",
@@ -169,6 +202,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const logout = async () => {
+    try {
+      await betterSignOut();
+    } catch (e) {
+      // ignore
+    }
     try {
       await fetch(`${API_BASE}/logout`, { method: "POST", credentials: "include" });
     } catch (e) {

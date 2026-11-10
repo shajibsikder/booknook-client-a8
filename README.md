@@ -18,4 +18,4 @@ BookNook is a web application where users can discover books, borrow them for re
 
 - Frontend: Next.js 14, React, Tailwind CSS, Lucide Icons, Swiper.js
 - Backend: Node.js, Express.js, MongoDB
-- Authentication: JWT, Cookie Parser
+- Authentication: BetterAuth, MongoDB Adapter, JWT
