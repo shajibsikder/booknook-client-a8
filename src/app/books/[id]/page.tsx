@@ -47,7 +47,6 @@ export default function BookDetailsPage() {
   return (
     <ProtectedRoute>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
-        {/* Back Link */}
         <Link
           href="/books"
           className="inline-flex items-center gap-2 text-sm font-medium text-stone-500 hover:text-orange-600 transition-colors mb-8"
@@ -68,7 +67,6 @@ export default function BookDetailsPage() {
         ) : book ? (
           <div className="bg-white dark:bg-slate-900 rounded-3xl border border-stone-200/80 dark:border-slate-800 shadow-xl overflow-hidden">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 p-6 sm:p-10 lg:p-12">
-              {/* Left Column: Book Image */}
               <div className="md:col-span-5 flex flex-col items-center">
                 <div className="relative w-full aspect-[3/4] max-w-sm rounded-2xl overflow-hidden shadow-2xl bg-stone-100 dark:bg-slate-800 flex items-center justify-center">
                   <BookOpen className="w-16 h-16 text-stone-400 stroke-1" />
@@ -90,7 +88,6 @@ export default function BookDetailsPage() {
                   </div>
                 </div>
 
-                {/* Copies status card */}
                 <div className="w-full max-w-sm mt-6 p-4 rounded-2xl bg-stone-50 dark:bg-slate-800/60 border border-stone-200/60 dark:border-slate-700/60 flex items-center justify-between">
                   <span className="text-xs font-semibold text-stone-500 uppercase tracking-wider">
                     Library Stock
@@ -109,7 +106,6 @@ export default function BookDetailsPage() {
                 </div>
               </div>
 
-              {/* Right Column: Book Information */}
               <div className="md:col-span-7 flex flex-col justify-between space-y-8">
                 <div className="space-y-6">
                   <div>
@@ -122,7 +118,6 @@ export default function BookDetailsPage() {
                     </p>
                   </div>
 
-                  {/* Metadata Chips */}
                   <div className="flex flex-wrap gap-4 py-3 border-y border-stone-100 dark:border-slate-800 text-xs sm:text-sm text-stone-600 dark:text-stone-300">
                     <div className="flex items-center gap-1.5">
                       <Tag className="w-4 h-4 text-orange-500" />
@@ -135,7 +130,6 @@ export default function BookDetailsPage() {
                     </div>
                   </div>
 
-                  {/* Description */}
                   <div className="space-y-2">
                     <h3 className="font-serif text-lg font-bold text-stone-900 dark:text-white">Synopsis</h3>
                     <p className="text-stone-600 dark:text-stone-300 leading-relaxed text-sm sm:text-base">
@@ -143,7 +137,6 @@ export default function BookDetailsPage() {
                     </p>
                   </div>
 
-                  {/* Contributor / Added By Information */}
                   <div className="p-4 rounded-2xl bg-amber-50/50 dark:bg-amber-950/20 border border-amber-200/50 dark:border-amber-900/30">
                     <p className="text-xs uppercase font-bold text-amber-800 dark:text-amber-400 tracking-wider">
                       Shared To BookNook By
@@ -157,7 +150,6 @@ export default function BookDetailsPage() {
                   </div>
                 </div>
 
-                {/* Borrow Button */}
                 <div className="pt-6 border-t border-stone-100 dark:border-slate-800">
                   {book.totalCopies > 0 ? (
                     <button
@@ -182,7 +174,6 @@ export default function BookDetailsPage() {
           </div>
         ) : null}
 
-        {/* Borrow Modal */}
         {book && (
           <BorrowModal
             isOpen={borrowModalOpen}

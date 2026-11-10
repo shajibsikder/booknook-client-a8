@@ -92,7 +92,6 @@ export default function HomePage() {
 
   return (
     <div className="space-y-16 sm:space-y-20">
-      {/* Hero banner slider */}
       <section className="w-full">
         <Swiper
           modules={[Autoplay, Pagination]}
@@ -110,10 +109,8 @@ export default function HomePage() {
                 className="relative flex size-full items-center bg-cover bg-center h-full w-full"
                 style={{ backgroundImage: `url(${slide.image})` }}
               >
-                {/* Dark Cinematic Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/35" />
 
-                {/* Left content */}
                 <div className="w-full relative mx-auto px-4 sm:px-6 lg:px-8 max-w-[1560px]">
                   <div className="max-w-4xl lg:max-w-5xl space-y-3 sm:space-y-4 text-white">
                     <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500/20 text-orange-300 border border-orange-500/30 text-[11px] sm:text-xs font-bold tracking-wider backdrop-blur-md">
@@ -155,7 +152,6 @@ export default function HomePage() {
         </Swiper>
       </section>
 
-      {/* New arrivals */}
       <section className="w-full mx-auto px-4 sm:px-6 lg:px-8 max-w-[1560px]">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
           <div>
@@ -200,7 +196,6 @@ export default function HomePage() {
         )}
       </section>
 
-      {/* Top categories */}
       <section className="bg-stone-100/70 dark:bg-slate-900/60 py-16 sm:py-20 border-y border-stone-200/80 dark:border-slate-800">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <div className="mb-12 text-center">
@@ -232,7 +227,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* How borrowing works */}
       <section className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <div className="mb-12 text-center">
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-stone-900 dark:text-white">
@@ -244,7 +238,6 @@ export default function HomePage() {
         </div>
 
         <div className="grid gap-6 md:grid-cols-3">
-          {/* Step 1 */}
           <div className="rounded-2xl border border-stone-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 text-center shadow-sm hover:shadow-md transition-shadow">
             <span className="mx-auto mb-5 grid size-14 place-items-center rounded-full bg-orange-600 text-white shadow-md shadow-orange-600/20">
               <Search className="w-6 h-6" />
@@ -260,7 +253,6 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* Step 2 */}
           <div className="rounded-2xl border border-stone-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 text-center shadow-sm hover:shadow-md transition-shadow">
             <span className="mx-auto mb-5 grid size-14 place-items-center rounded-full bg-orange-600 text-white shadow-md shadow-orange-600/20">
               <BookOpenCheck className="w-6 h-6" />
@@ -276,7 +268,6 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* Step 3 */}
           <div className="rounded-2xl border border-stone-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 text-center shadow-sm hover:shadow-md transition-shadow">
             <span className="mx-auto mb-5 grid size-14 place-items-center rounded-full bg-orange-600 text-white shadow-md shadow-orange-600/20">
               <Undo2 className="w-6 h-6" />

@@ -22,7 +22,6 @@ const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://booknook-server-a8.
 export default function BorrowModal({ isOpen, book, onClose, onSuccess }: BorrowModalProps) {
   const { user, token } = useAuth();
   const [returnDate, setReturnDate] = useState(() => {
-    // Default 14 days return period
     const d = new Date();
     d.setDate(d.getDate() + 14);
     return d.toISOString().split("T")[0];

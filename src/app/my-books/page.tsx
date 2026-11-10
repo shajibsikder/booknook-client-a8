@@ -17,12 +17,10 @@ export default function MyBooksPage() {
   const [books, setBooks] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Delete modal state
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [bookToDelete, setBookToDelete] = useState<any>(null);
   const [deleting, setDeleting] = useState(false);
 
-  // Edit modal state
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [editingBook, setEditingBook] = useState<any>(null);
   const [editForm, setEditForm] = useState({
@@ -60,7 +58,6 @@ export default function MyBooksPage() {
     fetchMyBooks();
   }, [fetchMyBooks]);
 
-  // Open Edit Modal with prefilled data
   const handleOpenEdit = (b: any) => {
     setEditingBook(b);
     setEditForm({
@@ -74,7 +71,6 @@ export default function MyBooksPage() {
     setEditModalOpen(true);
   };
 
-  // Submit Update
   const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingBook) return;
@@ -104,13 +100,11 @@ export default function MyBooksPage() {
     }
   };
 
-  // Open Custom Delete Modal
   const handleOpenDelete = (b: any) => {
     setBookToDelete(b);
     setDeleteModalOpen(true);
   };
 
-  // Confirm Delete
   const handleConfirmDelete = async () => {
     if (!bookToDelete) return;
     setDeleting(true);
@@ -140,7 +134,6 @@ export default function MyBooksPage() {
   return (
     <ProtectedRoute>
       <div className="w-full max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-8">
-        {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h1 className="font-serif text-3xl sm:text-4xl font-bold text-stone-900 dark:text-white">
@@ -160,7 +153,6 @@ export default function MyBooksPage() {
           </Link>
         </div>
 
-        {/* Content Table / Cards */}
         {loading ? (
           <div className="space-y-4 animate-pulse">
             {[1, 2, 3].map((i) => (
@@ -263,7 +255,6 @@ export default function MyBooksPage() {
           </div>
         )}
 
-        {/* Delete modal */}
         <CustomConfirmModal
           isOpen={deleteModalOpen}
           title="Delete Book From Catalog?"
@@ -274,7 +265,6 @@ export default function MyBooksPage() {
           onClose={() => setDeleteModalOpen(false)}
         />
 
-        {/* Edit modal */}
         {editModalOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
             <div className="bg-white dark:bg-slate-900 rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-stone-200 dark:border-slate-800 max-h-[90vh] overflow-y-auto">

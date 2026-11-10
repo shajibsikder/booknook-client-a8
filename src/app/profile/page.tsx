@@ -133,7 +133,6 @@ export default function ProfilePage() {
             </Link>
           </div>
 
-          {/* Borrowed Books Card */}
           <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-stone-200/80 dark:border-slate-800 shadow-sm flex flex-col justify-between space-y-5 hover:border-emerald-300 dark:hover:border-slate-700 transition-colors">
             <div className="flex items-center justify-between">
               <div className="w-14 h-14 rounded-2xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 flex items-center justify-center">

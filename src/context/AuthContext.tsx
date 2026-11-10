@@ -31,7 +31,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
-  // Restore user session on mount or from Google OAuth redirect
   useEffect(() => {
     try {
       if (typeof window !== "undefined") {
@@ -86,7 +85,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  // Get JWT token from backend
   const requestJWT = async (email: string, name?: string) => {
     try {
       const res = await fetch(`${API_BASE}/jwt`, {
@@ -109,15 +107,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const login = async (email: string, pass: string): Promise<boolean> => {
     try {
-      // BetterAuth sign in integration
       try {
         await signIn.email({
           email,
           password: pass,
         });
-      } catch (authErr) {
-        // Fallback for local persistence
-      }
+      } catch (authErr) {}
 
       const registeredUsers = JSON.parse(localStorage.getItem("booknook_registered_users") || "[]");
       let matchedUser = registeredUsers.find((u: any) => u.email.toLowerCase() === email.toLowerCase());
@@ -180,7 +175,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         name || "Reader"
       )}&background=ea580c&color=fff&size=256&bold=true`;
 
-      // BetterAuth registration integration
       try {
         await signUp.email({
           email,
@@ -188,9 +182,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           name,
           image: photoURL || defaultInitialAvatar,
         });
-      } catch (authErr) {
-        // Fallback for local persistence
-      }
+      } catch (authErr) {}
 
       const registeredUsers = JSON.parse(localStorage.getItem("booknook_registered_users") || "[]");
       const exists = registeredUsers.some((u: any) => u.email.toLowerCase() === email.toLowerCase());
@@ -252,14 +244,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const logout = async () => {
     try {
       await betterSignOut();
-    } catch (e) {
-      // ignore
-    }
+    } catch (e) {}
     try {
       await fetch(`${API_BASE}/logout`, { method: "POST", credentials: "include" });
-    } catch (e) {
-      console.warn("Logout endpoint call failed", e);
-    }
+    } catch (e) {}
     setUser(null);
     setToken(null);
     localStorage.removeItem("booknook_user");

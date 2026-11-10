@@ -30,7 +30,6 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Close dropdown on click outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -41,7 +40,6 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Lock body scroll when mobile menu is open
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -61,7 +59,6 @@ export default function Navbar() {
         <div className="w-full max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-3 md:gap-6 lg:gap-8">
-              {/* Mobile menu button */}
               <button
                 onClick={() => setMobileMenuOpen(true)}
                 className="md:hidden p-2 rounded-xl text-stone-600 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-slate-800 transition-colors"
@@ -70,7 +67,6 @@ export default function Navbar() {
                 <Menu className="w-6 h-6" />
               </button>
 
-              {/* Brand logo */}
               <Link href="/" className="flex items-center group">
                 <img
                   src="/logo.png"
@@ -84,7 +80,6 @@ export default function Navbar() {
                 />
               </Link>
 
-              {/* Desktop links */}
               <div className="hidden md:flex items-center gap-1 lg:gap-2">
                 <Link
                   href="/"
@@ -108,7 +103,6 @@ export default function Navbar() {
                   All Books
                 </Link>
 
-                {/* Private Links - shown only when logged in */}
                 {user && (
                   <>
                     <Link
@@ -151,9 +145,7 @@ export default function Navbar() {
               </div>
             </div>
 
-            {/* Right: Theme Toggle & Profile Dropdown */}
             <div className="flex items-center gap-2 sm:gap-3">
-              {/* Theme Toggle Button */}
               <button
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                 aria-label="Toggle theme"
@@ -166,7 +158,6 @@ export default function Navbar() {
                 )}
               </button>
 
-              {/* Auth Buttons / User Avatar Dropdown */}
               {user ? (
                 <div className="relative" ref={dropdownRef}>
                   <button
@@ -184,7 +175,6 @@ export default function Navbar() {
                     />
                   </button>
 
-                  {/* Desktop Dropdown Menu */}
                   {dropdownOpen && (
                     <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-stone-200 dark:border-slate-800 py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
                       <div className="px-4 py-2.5 border-b border-stone-100 dark:border-slate-800">
@@ -251,7 +241,6 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile drawer backdrop */}
       <div
         className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-50 transition-opacity duration-300 ${
           mobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
@@ -260,14 +249,12 @@ export default function Navbar() {
         aria-hidden="true"
       />
 
-      {/* Mobile drawer panel */}
       <aside
         className={`fixed inset-y-0 left-0 z-50 w-[290px] sm:w-[320px] max-w-[85vw] bg-white dark:bg-slate-900 border-r border-stone-200 dark:border-slate-800 shadow-2xl flex flex-col justify-between transform transition-transform duration-300 ease-in-out ${
           mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         <div className="flex flex-col h-full overflow-hidden">
-          {/* Drawer header */}
           <div className="flex items-center justify-between p-4 sm:p-5 border-b border-stone-200 dark:border-slate-800 shrink-0">
             <Link
               href="/"
@@ -295,7 +282,6 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* User Profile Card if logged in */}
           {user && (
             <div className="p-3 mx-3 my-3 rounded-2xl bg-stone-50 dark:bg-slate-800/60 border border-stone-200/80 dark:border-slate-700/80 shrink-0">
               <div className="flex items-center gap-3">
@@ -319,7 +305,6 @@ export default function Navbar() {
             </div>
           )}
 
-          {/* Navigation items */}
           <nav className="flex-1 px-3 py-2 space-y-1 overflow-y-auto">
             <Link
               href="/"
@@ -403,7 +388,6 @@ export default function Navbar() {
               </>
             )}
 
-            {/* Quick Links Divider */}
             <div className="pt-2 pb-1">
               <div className="h-px bg-stone-200 dark:bg-slate-800 my-1.5" />
               <span className="px-3.5 text-[10px] uppercase font-bold tracking-wider text-stone-400 dark:text-stone-500">
@@ -439,7 +423,6 @@ export default function Navbar() {
             </Link>
           </nav>
 
-          {/* Drawer Bottom Actions */}
           <div className="p-4 border-t border-stone-200 dark:border-slate-800 bg-stone-50/80 dark:bg-slate-900/80 shrink-0">
             {user ? (
               <button

@@ -11,7 +11,6 @@ export default function AboutPage() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 space-y-8">
-      {/* Header */}
       <div className="space-y-3">
         <Link
           href="/"
@@ -28,7 +27,6 @@ export default function AboutPage() {
         </p>
       </div>
 
-      {/* Main Content Card */}
       <div className="bg-white dark:bg-slate-900 rounded-3xl border border-stone-200/80 dark:border-slate-800 p-6 sm:p-10 lg:p-12 shadow-sm space-y-8 text-stone-700 dark:text-stone-300 text-sm sm:text-base leading-relaxed">
         <section className="space-y-3">
           <h2 className="font-serif text-xl sm:text-2xl font-bold text-stone-900 dark:text-white flex items-center gap-2">

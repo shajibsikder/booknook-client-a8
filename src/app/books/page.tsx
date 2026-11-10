@@ -61,7 +61,6 @@ function BooksContent() {
 
   return (
     <div className="w-full max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 space-y-8">
-      {/* Header */}
       <div className="text-center max-w-2xl mx-auto space-y-2">
         <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-stone-900 dark:text-white">
           All Books
@@ -71,7 +70,6 @@ function BooksContent() {
         </p>
       </div>
 
-      {/* Search and filter */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-4 p-3 sm:p-4 rounded-2xl sm:rounded-3xl bg-white dark:bg-slate-900 border border-stone-200/80 dark:border-slate-800 shadow-sm">
         <div className="flex flex-wrap items-center gap-1.5 w-full md:w-auto">
           {categories.map((cat) => (
@@ -89,7 +87,6 @@ function BooksContent() {
           ))}
         </div>
 
-        {/* Search Input */}
         <div className="relative w-full md:w-72">
           <Search className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
@@ -102,7 +99,6 @@ function BooksContent() {
         </div>
       </div>
 
-      {/* Books grid */}
       {loading ? (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-5 lg:gap-6">
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (

@@ -16,7 +16,6 @@ export async function GET(req: NextRequest) {
       "";
     const clientSecret = process.env.GOOGLE_CLIENT_SECRET || "";
 
-    // 1. Exchange authorization code for access token
     const tokenRes = await fetch("https://oauth2.googleapis.com/token", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -35,7 +34,6 @@ export async function GET(req: NextRequest) {
       return NextResponse.redirect(`${origin}/login?error=token_failed`);
     }
 
-    // 2. Fetch user profile from Google UserInfo endpoint
     const userRes = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
       headers: { Authorization: `Bearer ${tokenData.access_token}` },
     });
@@ -58,7 +56,6 @@ export async function GET(req: NextRequest) {
     targetUrl.searchParams.set("auth_success", "true");
     targetUrl.searchParams.set("user", JSON.stringify(userPayload));
 
-    // 3. Redirect back to app with authenticated user
     const redirectRes = NextResponse.redirect(targetUrl.toString());
     redirectRes.cookies.set("booknook_user", JSON.stringify(userPayload), {
       path: "/",

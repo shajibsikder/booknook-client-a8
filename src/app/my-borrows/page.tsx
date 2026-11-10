@@ -45,7 +45,6 @@ export default function MyBorrowsPage() {
     fetchBorrows();
   }, [fetchBorrows]);
 
-  // Handle Returning a Book
   const handleReturn = async (borrow: any) => {
     setReturningId(borrow._id);
     try {
@@ -72,7 +71,6 @@ export default function MyBorrowsPage() {
   return (
     <ProtectedRoute>
       <div className="w-full max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-8">
-        {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h1 className="font-serif text-3xl sm:text-4xl font-bold text-stone-900 dark:text-white">
@@ -92,7 +90,6 @@ export default function MyBorrowsPage() {
           </Link>
         </div>
 
-        {/* Borrows Table */}
         {loading ? (
           <div className="space-y-4 animate-pulse">
             {[1, 2, 3].map((i) => (

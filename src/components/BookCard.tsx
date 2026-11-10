@@ -67,7 +67,6 @@ export default function BookCard({ book }: { book: Book }) {
           </p>
         </div>
 
-        {/* Action Button */}
         <div className="pt-3 mt-3 border-t border-stone-100 dark:border-slate-800">
           <Link
             href={`/books/${book._id}`}

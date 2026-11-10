@@ -87,7 +87,6 @@ export default function RegisterPage() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Name */}
           <div>
             <label className="block text-xs font-semibold uppercase tracking-wider text-stone-600 dark:text-stone-300 mb-1 flex items-center gap-1.5">
               <User className="w-3.5 h-3.5 text-orange-600" />
@@ -103,7 +102,6 @@ export default function RegisterPage() {
             />
           </div>
 
-          {/* Email */}
           <div>
             <label className="block text-xs font-semibold uppercase tracking-wider text-stone-600 dark:text-stone-300 mb-1 flex items-center gap-1.5">
               <Mail className="w-3.5 h-3.5 text-orange-600" />
@@ -119,7 +117,6 @@ export default function RegisterPage() {
             />
           </div>
 
-          {/* Photo URL */}
           <div>
             <label className="block text-xs font-semibold uppercase tracking-wider text-stone-600 dark:text-stone-300 mb-1 flex items-center gap-1.5">
               <ImageIcon className="w-3.5 h-3.5 text-orange-600" />
@@ -134,7 +131,6 @@ export default function RegisterPage() {
             />
           </div>
 
-          {/* Password */}
           <div>
             <label className="block text-xs font-semibold uppercase tracking-wider text-stone-600 dark:text-stone-300 mb-1 flex items-center gap-1.5">
               <Lock className="w-3.5 h-3.5 text-orange-600" />
@@ -150,7 +146,6 @@ export default function RegisterPage() {
             />
           </div>
 
-          {/* Confirm Password */}
           <div>
             <label className="block text-xs font-semibold uppercase tracking-wider text-stone-600 dark:text-stone-300 mb-1 flex items-center gap-1.5">
               <Lock className="w-3.5 h-3.5 text-orange-600" />
@@ -166,7 +161,6 @@ export default function RegisterPage() {
             />
           </div>
 
-          {/* Select Your Role */}
           <div>
             <label className="block text-xs font-semibold uppercase tracking-wider text-stone-600 dark:text-stone-300 mb-2">
               Select Your Role
@@ -218,7 +212,6 @@ export default function RegisterPage() {
           </div>
         </div>
 
-        {/* Google Sign In */}
         <button
           type="button"
           onClick={handleGoogleSignIn}
