@@ -11,6 +11,8 @@ import {
   Link as LinkIcon,
   Layers,
   FileText,
+  Upload,
+  Loader2,
 } from "lucide-react";
 import toast from "react-hot-toast";
 
@@ -29,10 +31,59 @@ export default function AddBookPage() {
   const [description, setDescription] = useState("");
   const [totalCopies, setTotalCopies] = useState(3);
   const [submitting, setSubmitting] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
 
   useEffect(() => {
     document.title = "BookNook | Add Book";
   }, []);
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      toast.error("Please select a valid image file");
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("Image file size should be less than 5MB");
+      return;
+    }
+
+    setUploadingImage(true);
+    const toastId = toast.loading("Uploading cover image to ImgBB...");
+
+    try {
+      const apiKey =
+        process.env.NEXT_PUBLIC_IMGBB_API_KEY ||
+        "52f541054ea190c92da0a8b5be8095e2";
+      const formData = new FormData();
+      formData.append("image", file);
+
+      const res = await fetch(`https://api.imgbb.com/1/upload?key=${apiKey}`, {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+      toast.dismiss(toastId);
+
+      if (data.success && (data.data?.display_url || data.data?.url)) {
+        const uploadedUrl = data.data.display_url || data.data.url;
+        setImage(uploadedUrl);
+        toast.success("Cover image uploaded to ImgBB!");
+      } else {
+        toast.error("ImgBB upload failed. Please try again or paste image URL.");
+      }
+    } catch {
+      toast.dismiss(toastId);
+      toast.error("Could not upload to ImgBB. Please paste direct image URL.");
+    } finally {
+      setUploadingImage(false);
+      e.target.value = "";
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,6 +94,7 @@ export default function AddBookPage() {
 
     setSubmitting(true);
     try {
+      const today = new Date().toISOString().split("T")[0];
       const res = await fetch(`${API_BASE}/books`, {
         method: "POST",
         headers: {
@@ -59,6 +111,7 @@ export default function AddBookPage() {
           totalCopies: Number(totalCopies) || 1,
           userName: user?.name,
           userEmail: user?.email,
+          addedDate: today,
         }),
       });
 
@@ -98,7 +151,7 @@ export default function AddBookPage() {
               <input
                 type="text"
                 required
-                placeholder="e.g. The Alchemist"
+                placeholder="e.g. The Midnight Library"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 className="w-full px-4 py-2.5 sm:py-3 rounded-xl border border-stone-200 dark:border-slate-700 bg-stone-50 dark:bg-slate-800/80 text-stone-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
@@ -108,12 +161,12 @@ export default function AddBookPage() {
             <div>
               <label className="block text-xs font-semibold uppercase tracking-wider text-stone-700 dark:text-stone-300 mb-1.5 flex items-center gap-1.5">
                 <User className="w-4 h-4 text-orange-600" />
-                Author *
+                Author Name *
               </label>
               <input
                 type="text"
                 required
-                placeholder="e.g. Paulo Coelho"
+                placeholder="e.g. Matt Haig"
                 value={author}
                 onChange={(e) => setAuthor(e.target.value)}
                 className="w-full px-4 py-2.5 sm:py-3 rounded-xl border border-stone-200 dark:border-slate-700 bg-stone-50 dark:bg-slate-800/80 text-stone-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
@@ -156,25 +209,65 @@ export default function AddBookPage() {
               </div>
             </div>
 
-            <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-stone-700 dark:text-stone-300 mb-1.5 flex items-center gap-1.5">
-                <LinkIcon className="w-4 h-4 text-orange-600" />
-                Book Cover Image URL *
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <label className="block text-xs font-semibold uppercase tracking-wider text-stone-700 dark:text-stone-300 flex items-center gap-1.5">
+                  <Upload className="w-4 h-4 text-orange-600" />
+                  Book Cover Image *
+                </label>
+                <span className="text-[11px] font-medium text-orange-600 dark:text-orange-400">
+                  Upload via ImgBB
+                </span>
+              </div>
+
+              <label
+                className={`flex flex-col items-center justify-center p-4 border-2 border-dashed rounded-xl cursor-pointer transition-colors ${
+                  uploadingImage
+                    ? "border-orange-400 bg-orange-50/50 dark:bg-orange-950/20"
+                    : "border-stone-300 dark:border-slate-700 bg-stone-50 dark:bg-slate-800 hover:border-orange-500"
+                }`}
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  disabled={uploadingImage}
+                  className="hidden"
+                />
+                {uploadingImage ? (
+                  <div className="flex items-center gap-2 text-orange-600 text-sm font-medium">
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>Uploading to ImgBB...</span>
+                  </div>
+                ) : (
+                  <div className="flex flex-col items-center text-center gap-1">
+                    <Upload className="w-5 h-5 text-stone-400" />
+                    <span className="text-xs font-semibold text-stone-700 dark:text-stone-300">
+                      Click to upload cover file
+                    </span>
+                    <span className="text-[10px] text-stone-500">
+                      JPG, PNG, WebP up to 5MB (uploaded via ImgBB)
+                    </span>
+                  </div>
+                )}
               </label>
-              <input
-                type="url"
-                required
-                placeholder="https://images.unsplash.com/photo-..."
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
-                className="w-full px-4 py-2.5 sm:py-3 rounded-xl border border-stone-200 dark:border-slate-700 bg-stone-50 dark:bg-slate-800/80 text-stone-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
-              />
-              <p className="text-[11px] text-stone-500 dark:text-stone-400 mt-1">
-                Provide a direct image URL (e.g. from Unsplash or image host).
-              </p>
+
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-stone-400">
+                  <LinkIcon className="w-3.5 h-3.5" />
+                </div>
+                <input
+                  type="url"
+                  required
+                  placeholder="Or paste direct image URL (https://...)"
+                  value={image}
+                  onChange={(e) => setImage(e.target.value)}
+                  className="w-full pl-9 pr-4 py-2.5 rounded-xl border border-stone-200 dark:border-slate-700 bg-stone-50 dark:bg-slate-800/80 text-stone-900 dark:text-white text-xs focus:outline-none focus:ring-2 focus:ring-orange-500"
+                />
+              </div>
 
               {image.trim() && (
-                <div className="mt-3 flex items-center gap-3 p-2.5 rounded-xl bg-stone-50 dark:bg-slate-800 border border-stone-200 dark:border-slate-700">
+                <div className="mt-2 flex items-center gap-3 p-2.5 rounded-xl bg-stone-50 dark:bg-slate-800 border border-stone-200 dark:border-slate-700">
                   <div className="w-10 h-14 rounded-md overflow-hidden bg-stone-200 dark:bg-slate-700 flex items-center justify-center shrink-0">
                     <img
                       src={image}
@@ -188,13 +281,18 @@ export default function AddBookPage() {
                       }}
                     />
                   </div>
-                  <span className="text-xs text-stone-500 dark:text-stone-400">Cover Preview</span>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs font-medium text-stone-900 dark:text-white truncate">
+                      {image.includes("ibb.co") ? "Uploaded to ImgBB" : "Cover Preview"}
+                    </p>
+                    <p className="text-[10px] text-stone-500 truncate">{image}</p>
+                  </div>
                   <button
                     type="button"
                     onClick={() => setImage("")}
-                    className="ml-auto text-xs text-rose-500 hover:underline px-2 py-1"
+                    className="text-xs text-rose-500 hover:underline px-2 py-1 shrink-0"
                   >
-                    Clear
+                    Remove
                   </button>
                 </div>
               )}
@@ -221,7 +319,7 @@ export default function AddBookPage() {
 
             <button
               type="submit"
-              disabled={submitting}
+              disabled={submitting || uploadingImage}
               className="w-full py-3 sm:py-3.5 rounded-xl text-sm font-semibold text-white bg-orange-600 hover:bg-orange-700 transition-colors shadow-md shadow-orange-600/20 disabled:opacity-50"
             >
               {submitting ? "Adding Book..." : "Add Book"}
